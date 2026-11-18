@@ -17,7 +17,11 @@ All data is synthetic and labelled as made up.
 - An enquiry that matches no topic goes under Other.
 - The filter shows a count of 0 without breaking.
 
-**Result:** _fill in after you run it: what worked, what broke._
+**Result:**
+- **Worked:** Topic filter shows 6 topics (Retirement, Withdrawal, CPF LIFE, Medisave, Housing, Fees) plus "Other" and "All". Each enquiry displays exactly one topic label. Counts update correctly: Retirement (3), Withdrawal (2), CPF LIFE (2), Medisave (3), Housing (2), Fees (2), Other (2). Clicking a topic filters the inbox instantly.
+- **Worked:** "Other" topic catches enquiries that don't match the 6 main topics (e.g., CPF for car, cross-source inference questions).
+- **Worked:** Empty filter shows "No enquiries for this topic" message without breaking.
+- **Nothing broke.** All 15 test cases load and filter correctly.
 
 ## 2. Behavior
 
