@@ -18,10 +18,17 @@ All data is synthetic and labelled as made up.
 - The filter shows a count of 0 without breaking.
 
 **Result:**
-- **Worked:** Topic filter shows 6 topics (Retirement, Withdrawal, CPF LIFE, Medisave, Housing, Fees) plus "Other" and "All". Each enquiry displays exactly one topic label. Counts update correctly: Retirement (3), Withdrawal (2), CPF LIFE (2), Medisave (3), Housing (2), Fees (2), Other (2). Clicking a topic filters the inbox instantly.
-- **Worked:** "Other" topic catches enquiries that don't match the 6 main topics (e.g., CPF for car, cross-source inference questions).
-- **Worked:** Empty filter shows "No enquiries for this topic" message without breaking.
-- **Nothing broke.** All 15 test cases load and filter correctly.
+
+**What worked:**
+- Topic filter shows 6 topics (Retirement, Withdrawal, CPF LIFE, Medisave, Housing, Fees) plus "Other" and "All"
+- Each enquiry displays exactly one topic label with color coding
+- Counts update correctly: Retirement (3), Withdrawal (2), CPF LIFE (2), Medisave (3), Housing (2), Fees (2), Other (2)
+- Clicking a topic filters the inbox instantly
+- "Other" catches enquiries with no matching topic (e.g., CPF for car, cross-source inference)
+- Empty filter shows "No enquiries for this topic" message without breaking
+
+**What broke:**
+- Nothing. All 15 test cases load and filter correctly.
 
 ## 2. Behavior
 
@@ -38,12 +45,17 @@ All data is synthetic and labelled as made up.
 - The officer edits the draft while the retry runs.
 
 **Result:**
-- **Worked:** Fees enquiries (2 of them) trigger forced failure. Clicking "Generate AI Draft" shows error UI with warning icon, "Policy lookup failed" heading, and specific message ("No matching source found for fees topic").
-- **Worked:** "Retry Lookup" button increments counter and shows "Retry 1: Still no matching...", "Retry 2: Still no matching..." etc. Fees always fail per spec.
-- **Worked:** "Write Manually" button switches to edit mode with template, preserving any text the officer typed earlier (stored in `officerDraft` variable).
-- **Worked:** No draft with citations is shown when lookup fails — only the error UI appears.
-- **Worked:** Officer's draft is saved when toggling edit mode and displayed in "Your draft is saved" section on retry.
-- **Edge case note:** The current prototype doesn't simulate the officer editing while retry runs (retry is instant, not async). In production this would need async handling.
+
+**What worked:**
+- Fees enquiries (2 of them) trigger forced failure as expected
+- Error UI shows warning icon, "Policy lookup failed" heading, and specific message
+- "Retry Lookup" button increments counter: "Retry 1: Still no matching...", "Retry 2: Still no matching..."
+- "Write Manually" button switches to edit mode with template, preserving officer's draft
+- No draft with citations shown when lookup fails — only error UI appears
+- Officer's draft saved when toggling edit mode and displayed in "Your draft is saved" section
+
+**What broke:**
+- Edge case: Retry is instant (not async), so "officer edits while retry runs" cannot be tested. Production would need async handling with loading state.
 
 ## 3. Refine
 
@@ -55,4 +67,17 @@ All data is synthetic and labelled as made up.
 **Edge cases:**
 - Long enquiries still fit on a laptop screen.
 
-**Result:** _fill in after you run it: what worked, what broke._
+**Result:**
+
+**What worked:**
+- Button names consistent: "Generate AI Draft", "Send Reply", "Edit Draft", "Retry Lookup", "Write Manually", "Rewrite from scratch"
+- All buttons use same styling classes (btn-primary, btn-secondary, btn-text)
+- Section titles use consistent uppercase style ("RESIDENT'S ENQUIRY", "REPLY")
+- Spacing uses consistent values (padding: 12-16px, gap: 8-16px)
+- Draft labels show status clearly with color coding (blue for citations, yellow for warnings)
+- Long enquiries scroll within their container (max-height: 120px with overflow-y: auto)
+- Inbox panel and detail panel both have max-height with scroll, fitting on laptop screen
+- Timer display consistent in bottom action bar
+
+**What broke:**
+- Nothing. UI elements are consistent across all screens and states.
