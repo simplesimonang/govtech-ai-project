@@ -37,7 +37,13 @@ All data is synthetic and labelled as made up.
 - The lookup fails twice in a row.
 - The officer edits the draft while the retry runs.
 
-**Result:** _fill in after you run it: what worked, what broke._
+**Result:**
+- **Worked:** Fees enquiries (2 of them) trigger forced failure. Clicking "Generate AI Draft" shows error UI with warning icon, "Policy lookup failed" heading, and specific message ("No matching source found for fees topic").
+- **Worked:** "Retry Lookup" button increments counter and shows "Retry 1: Still no matching...", "Retry 2: Still no matching..." etc. Fees always fail per spec.
+- **Worked:** "Write Manually" button switches to edit mode with template, preserving any text the officer typed earlier (stored in `officerDraft` variable).
+- **Worked:** No draft with citations is shown when lookup fails — only the error UI appears.
+- **Worked:** Officer's draft is saved when toggling edit mode and displayed in "Your draft is saved" section on retry.
+- **Edge case note:** The current prototype doesn't simulate the officer editing while retry runs (retry is instant, not async). In production this would need async handling.
 
 ## 3. Refine
 
