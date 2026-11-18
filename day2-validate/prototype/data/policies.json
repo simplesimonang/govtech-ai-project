@@ -1,0 +1,22 @@
+{
+  "cpf-frs": {
+    "title": "CPF-001: CPF Retirement Sum (made up)",
+    "content": "The Full Retirement Sum (FRS) for members turning 55 in 2026 is $205,800. Members may withdraw amounts above the FRS.",
+    "lastReviewed": "2026-10-01"
+  },
+  "cpf-withdrawal": {
+    "title": "CPF-002: CPF Withdrawal at 55 (made up)",
+    "content": "Members can apply online via CPF website using Singpass, or at any CPF Service Centre with NRIC.",
+    "lastReviewed": "2026-09-15"
+  },
+  "cpf-life": {
+    "title": "CPF-003: CPF LIFE Payouts (made up)",
+    "content": "CPF LIFE provides monthly payouts from age 65 for life. Payout depends on Retirement Account balance.",
+    "lastReviewed": "2026-08-20"
+  },
+  "medisave": {
+    "title": "CPF-004: Medisave Withdrawal (made up)",
+    "content": "You may use Medisave for approved medical expenses for yourself, spouse, children, parents, grandparents, and siblings.",
+    "lastReviewed": "2026-07-10"
+  }
+}
