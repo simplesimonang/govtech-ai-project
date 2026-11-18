@@ -6,6 +6,21 @@
 
 ---
 
+## What Was Missing (added after first review)
+
+A new owner reading the original handoff note would have been missing:
+
+1. **How to run the prototype** — no setup/run instructions
+2. **Data contracts** — scenario, policy, topic shapes for API integration
+3. **Success criteria numbers** — the "7 in 10" threshold wasn't stated
+4. **Kill switch definition** — when to stop the project
+5. **Known quirks** — fees always fails, CPF-004 outdated by design, timer starts on Generate
+6. **Contacts** — who to ask about what
+
+These have now been added below.
+
+---
+
 ## What It Does
 
 An AI-assisted reply tool for ServiceSG officers handling the shared enquiry inbox.
