@@ -26,6 +26,24 @@ An AI-assisted reply tool for ServiceSG officers handling the shared enquiry inb
 
 ---
 
+## How to Run the Prototype
+
+```bash
+cd day2-validate/prototype
+python3 -m http.server 8080
+```
+
+Then open http://localhost:8080 in a browser.
+
+**Quick test:**
+1. Click any enquiry in the inbox
+2. Click "Generate AI Draft"
+3. Click a citation (e.g., CPF-001) → policy panel opens
+4. Click "Send Reply" → result modal shows metrics
+5. Try a "fees" enquiry → triggers failed lookup flow
+
+---
+
 ## What Is Synthetic
 
 Everything in this prototype is made up. Do not use any of this data in production.
@@ -42,6 +60,47 @@ Everything in this prototype is made up. Do not use any of this data in producti
 | Draft replies | All hardcoded HTML | Made up |
 
 The prototype tests UX and officer behavior, not AI quality or real policy accuracy.
+
+---
+
+## Data Contracts
+
+Data is loaded from `data/*.json` via fetch. Swap these URLs to point at real APIs.
+
+**Scenario shape** (`data/scenarios.json`):
+```js
+{
+  id: 'SG-2026-11847',
+  email: 'tan_ah_kow@example.com',
+  date: '18 Nov, 9:32 AM',
+  topic: 'retirement',           // one of 7 topic IDs
+  preview: 'Hi, I recently...',
+  enquiry: '<p>Full HTML...</p>',
+  lookupSuccess: true,           // false → failed lookup UI
+  failureMessage: '...',         // shown when lookup fails
+  draftLabel: 'AI-drafted reply with citations',
+  draftLabelClass: 'warning',    // optional
+  draftHtml: '<p>Draft...</p>',
+  draftPlain: 'Plain text...',
+  citationCount: 3
+}
+```
+
+**Policy shape** (`data/policies.json`):
+```js
+{
+  'cpf-frs': {
+    title: 'CPF-001: CPF Retirement Sum',
+    content: 'The Full Retirement Sum...',
+    lastReviewed: '2026-10-01'
+  }
+}
+```
+
+**Topic shape** (`data/topics.json`):
+```js
+{ id: 'retirement', name: 'Retirement' }
+```
 
 ---
 
@@ -112,6 +171,29 @@ These are deliberate product/policy choices, not technical debt.
 
 ---
 
+## Success Criteria and Kill Switch
+
+**Pass:** 7 in 10 drafts sent after a light edit in officer testing.
+
+**Fail (kill switch):**
+- Officers get stuck >3 minutes on the core action, OR
+- Officers rewrite most drafts from scratch
+
+If kill switch is hit: check draft quality first before concluding officers distrust the concept.
+
+---
+
+## Known Quirks
+
+| Quirk | Why it exists |
+|-------|---------------|
+| "fees" enquiries always fail lookup | Forced failure for testing error UI |
+| CPF-004 shows "may be outdated" | lastReviewed is >90 days ago by design |
+| Timer starts on Generate, not on open | Deliberate; tracks drafting time only |
+| 16 scenarios but UI says "15" | Off-by-one in living-prd; code has 16 |
+
+---
+
 ## Handoff Decision
 
 **Decision:** Keep prototyping
@@ -137,6 +219,17 @@ These are deliberate product/policy choices, not technical debt.
 | `day2-validate/PROMPTS.md` | Prompt chain with test results |
 | `day2-validate/prototype/` | Working prototype (index.html, app.js, styles.css, data/) |
 | `one-pager.md` | Problem statement, hypothesis, success criteria |
+
+---
+
+## Contacts
+
+| Role | Who | Ask about |
+|------|-----|-----------|
+| Product owner | (add name) | Success criteria, UX decisions, scope |
+| Policy team | (add name) | Citation rules, source accuracy, topic list |
+| Technical owner | (add name) | API contracts, integration approach |
+| Original builder | (add name) | Why something was built a certain way |
 
 ---
 
