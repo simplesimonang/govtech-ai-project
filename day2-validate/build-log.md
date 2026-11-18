@@ -30,3 +30,5 @@
 
 **Pass:** 7 in 10 drafts sent after a light edit. (made up)
 **Fail:** Officers rewrite most drafts from scratch, or get stuck for more than 3 minutes. (Starting threshold — adjust based on query complexity during testing.)
+
+**If fail:** Revisit the model or algorithm first — the AI-generated reply may be inaccurate, incomplete, or poorly structured. Check draft quality before concluding that officers distrust the concept itself.

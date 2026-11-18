@@ -51,4 +51,5 @@ I'm testing whether officers will send an AI-drafted first reply after a light e
 - Risk type: Usability (build a clickable mockup first)
 - Kill switch: Officers trust a cited draft enough to edit it instead of starting over.
 - Kill-switch signal: Officers get stuck on the core action within 3 minutes, or rewrite most of the draft. (Starting threshold — adjust based on query complexity during testing.)
+- If kill switch is met: Revisit the model or algorithm first — the AI-generated reply may be inaccurate, incomplete, or poorly structured. Check draft quality before concluding that officers distrust the concept itself.
 - Success signal: 7 in 10 drafts sent after a light edit by 20 Nov (made up)
