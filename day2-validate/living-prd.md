@@ -85,7 +85,7 @@ All data is synthetic and labelled as made up.
 
 ## 4. Success Metrics
 
-**Tracked in prototype (`showResult` function, lines 1340–1361):**
+**Tracked in prototype (`showResult` function in app.js, lines 230–251):**
 
 | Metric | How it's captured | Why it matters |
 |--------|-------------------|----------------|
@@ -110,14 +110,20 @@ All data is synthetic and labelled as made up.
 **File structure:**
 ```
 day2-validate/prototype/
-├── index.html          # 1,388 lines — CSS, HTML, JS all inline
+├── index.html      # 107 lines — HTML structure only
+├── styles.css      # 479 lines — all CSS
+├── app.js          # 306 lines — JS with async data loading
+├── data/
+│   ├── topics.json     # 8 topic entries
+│   ├── scenarios.json  # 16 test cases
+│   └── policies.json   # 4 policy sources
 └── sample-policy-sources.md  # Documentation only, not used by code
 ```
 
-**Data model (from JS):**
+**Data model (from data/*.json):**
 
 ```js
-// Scenario shape (15 instances, lines 610–1057)
+// Scenario shape (data/scenarios.json, 16 instances)
 {
   id: 'SG-2026-11847',
   email: 'tan_ah_kow@example.com',
@@ -134,7 +140,7 @@ day2-validate/prototype/
   citationCount: 3
 }
 
-// Policy shape (4 instances, lines 1060–1081)
+// Policy shape (data/policies.json, 4 instances)
 {
   'cpf-frs': {
     title: 'CPF-001: CPF Retirement Sum (made up)',
@@ -143,7 +149,7 @@ day2-validate/prototype/
   }
 }
 
-// Topics (8 entries including 'all', lines 598–607)
+// Topics (data/topics.json, 8 entries including 'all')
 [
   { id: 'all', name: 'All' },
   { id: 'retirement', name: 'Retirement' },
@@ -156,7 +162,7 @@ day2-validate/prototype/
 ]
 ```
 
-**State variables (lines 1084–1091):**
+**State variables (app.js, lines 4–11):**
 ```js
 let currentFilter = 'all';
 let selectedEnquiry = null;
@@ -182,14 +188,12 @@ let retryCount = 0;
 | Officer reads before generate | Timer starts on generate, not open | Time metric underestimates |
 | Single officer per enquiry | No assignment/lock | Concurrent edits lost |
 
-### Known fragility
+### Known fragility — FIXED
 
-**Citation click handler (lines 1218–1226):**
-- Attaches listeners after innerHTML set
-- Stacks if `showDraft()` called twice
-- No event delegation — won't work with streaming drafts
-
-**Fix:** Use `document.addEventListener('click', ...)` with delegation on `.draft-reply`.
+**Citation click handler:** ✅ Fixed in refactor (app.js, lines 26–34)
+- Now uses event delegation on `#draft-display`
+- Single listener attached once in `init()`
+- Works with dynamically generated content and streaming drafts
 
 ### What the prototype doesn't test
 
@@ -240,23 +244,19 @@ let retryCount = 0;
 
 ## 8. Engineering Recommendation
 
-### Before handing to engineering
+### Before handing to engineering — DONE
 
-1. **Split the file:**
-   - `styles.css` (480 lines)
-   - `app.js` (790 lines)
-   - `index.html` (107 lines)
+1. ✅ **Split the file:** index.html (107), styles.css (479), app.js (306)
+2. ✅ **Extract data:** data/topics.json, scenarios.json, policies.json
+3. ✅ **Fix citation handler:** Now uses event delegation (app.js lines 26–34)
 
-2. **Extract data:**
-   - `scenarios.json` — test cases
-   - `policies.json` — policy sources
-   - Makes it easier to swap real API later
+### Still to do
 
-3. **Add one smoke test:**
+1. **Add one smoke test:**
    - Playwright or Cypress
    - "Select enquiry → generate → send → modal shows"
 
-4. **Document the API contract:**
+2. **Document the API contract:**
    ```
    GET /api/enquiries → Scenario[]
    GET /api/draft?enquiryId=X → { draftHtml, draftPlain, citations[] }
@@ -266,13 +266,13 @@ let retryCount = 0;
 
 ### Fix before production
 
-| Issue | Fix |
-|-------|-----|
-| Citation handler stacks | Event delegation |
-| No loading state | Add spinner on generate |
-| Timer starts late | Start on enquiry open, not generate |
-| `officerDraft` lost on refresh | localStorage or session |
-| No error handling | try/catch + fallback UI |
+| Issue | Fix | Status |
+|-------|-----|--------|
+| Citation handler stacks | Event delegation | ✅ Fixed |
+| No loading state | Add spinner on generate | ⏳ Pending |
+| Timer starts late | Start on enquiry open, not generate | ⏳ Pending |
+| `officerDraft` lost on refresh | localStorage or session | ⏳ Pending |
+| No error handling | try/catch + fallback UI | ⏳ Pending |
 
 ### What's production-ready now
 
@@ -288,9 +288,9 @@ let retryCount = 0;
 
 **The scenario data contract** — complete specification of what backend returns. Engineer can build API by matching this shape.
 
-### Fragile
+### Fragile — FIXED
 
-**Citation click handler** — stacks listeners, no delegation. Needs rewrite for production.
+**Citation click handler** — ✅ Now uses event delegation (app.js lines 26–34). No longer stacks.
 
 ### Surprising (positive)
 
