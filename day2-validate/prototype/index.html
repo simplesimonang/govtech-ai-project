@@ -17,99 +17,185 @@
       line-height: 1.5;
     }
     .container {
-      max-width: 900px;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 20px;
+      padding: 16px;
     }
     .banner {
       background: #fef3cd;
       border: 1px solid #ffc107;
       border-radius: 4px;
-      padding: 10px 15px;
-      margin-bottom: 20px;
+      padding: 10px 14px;
+      margin-bottom: 16px;
       font-size: 13px;
       color: #856404;
     }
-    .scenario-badge {
-      display: inline-block;
-      background: #e9ecef;
-      color: #495057;
-      padding: 2px 8px;
-      border-radius: 3px;
-      font-size: 11px;
-      margin-left: 10px;
-    }
-    .scenario-selector {
+    .layout {
       display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 10px;
-      padding-top: 10px;
-      border-top: 1px solid #ffe69c;
+      gap: 16px;
     }
-    .scenario-selector label {
-      font-size: 12px;
-      font-weight: 500;
-    }
-    .scenario-selector select {
-      padding: 4px 8px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-      font-size: 12px;
+    /* Inbox panel */
+    .inbox-panel {
+      width: 340px;
+      flex-shrink: 0;
       background: white;
-    }
-    .scenario-selector button {
-      padding: 4px 12px;
-      border-radius: 4px;
-      border: none;
-      background: #1a1a5e;
-      color: white;
-      font-size: 12px;
-      cursor: pointer;
-    }
-    .scenario-selector button:hover {
-      background: #2a2a7e;
-    }
-    .header {
-      background: #1a1a5e;
-      color: white;
-      padding: 15px 20px;
-      border-radius: 8px 8px 0 0;
-    }
-    .header h1 {
-      font-size: 18px;
-      font-weight: 500;
-    }
-    .header .meta {
-      font-size: 13px;
-      opacity: 0.8;
-      margin-top: 5px;
-    }
-    .main {
-      background: white;
-      border-radius: 0 0 8px 8px;
+      border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      max-height: calc(100vh - 120px);
+      display: flex;
+      flex-direction: column;
     }
-    .section {
-      padding: 20px;
+    .inbox-header {
+      padding: 14px;
       border-bottom: 1px solid #eee;
     }
-    .section:last-child {
-      border-bottom: none;
+    .inbox-header h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .topic-filter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .topic-btn {
+      padding: 4px 10px;
+      border-radius: 14px;
+      border: 1px solid #ddd;
+      background: white;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .topic-btn:hover {
+      border-color: #1a1a5e;
+    }
+    .topic-btn.active {
+      background: #1a1a5e;
+      color: white;
+      border-color: #1a1a5e;
+    }
+    .topic-btn .count {
+      margin-left: 4px;
+      opacity: 0.7;
+    }
+    .inbox-list {
+      flex: 1;
+      overflow-y: auto;
+    }
+    .inbox-item {
+      padding: 12px 14px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .inbox-item:hover {
+      background: #f8f9fa;
+    }
+    .inbox-item.selected {
+      background: #e8f4fd;
+      border-left: 3px solid #1a1a5e;
+    }
+    .inbox-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 4px;
+    }
+    .inbox-item-id {
+      font-weight: 600;
+      font-size: 13px;
+    }
+    .inbox-item-time {
+      font-size: 11px;
+      color: #666;
+    }
+    .inbox-item-preview {
+      font-size: 12px;
+      color: #666;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .topic-label {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 10px;
+      font-weight: 500;
+      margin-top: 6px;
+    }
+    .topic-label.retirement { background: #e3f2fd; color: #1565c0; }
+    .topic-label.withdrawal { background: #f3e5f5; color: #7b1fa2; }
+    .topic-label.cpf-life { background: #e8f5e9; color: #2e7d32; }
+    .topic-label.medisave { background: #fff3e0; color: #ef6c00; }
+    .topic-label.housing { background: #fce4ec; color: #c2185b; }
+    .topic-label.fees { background: #ffebee; color: #c62828; }
+    .topic-label.other { background: #eceff1; color: #546e7a; }
+    /* Detail panel */
+    .detail-panel {
+      flex: 1;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      max-height: calc(100vh - 120px);
+    }
+    .detail-header {
+      background: #1a1a5e;
+      color: white;
+      padding: 14px 16px;
+      border-radius: 8px 8px 0 0;
+    }
+    .detail-header h1 {
+      font-size: 16px;
+      font-weight: 500;
+    }
+    .detail-header .meta {
+      font-size: 12px;
+      opacity: 0.8;
+      margin-top: 4px;
+    }
+    .detail-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
     }
     .section-title {
-      font-size: 12px;
+      font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       color: #666;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       font-weight: 600;
     }
     .enquiry-text {
       background: #f9f9f9;
-      padding: 15px;
+      padding: 12px;
       border-radius: 6px;
-      border-left: 4px solid #1a1a5e;
+      border-left: 3px solid #1a1a5e;
+      font-size: 14px;
+      margin-bottom: 16px;
+      max-height: 120px;
+      overflow-y: auto;
+    }
+    .generate-section {
+      text-align: center;
+      padding: 24px;
+      background: #f8f9fa;
+      border-radius: 6px;
+      border: 2px dashed #ddd;
+    }
+    .generate-section p {
+      color: #666;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+    .draft-section {
+      display: none;
     }
     .draft-label {
       display: inline-flex;
@@ -121,29 +207,35 @@
       border-radius: 4px;
       font-size: 12px;
       font-weight: 500;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .draft-label svg {
       width: 14px;
       height: 14px;
     }
-    .draft-label.no-info {
+    .draft-label.warning {
       background: #fff3cd;
       color: #856404;
+    }
+    .draft-label.error {
+      background: #ffebee;
+      color: #c62828;
     }
     .draft-reply {
       border: 2px dashed #b3d7ff;
       border-radius: 6px;
-      padding: 15px;
+      padding: 12px;
       background: #fafcff;
-      position: relative;
+      font-size: 14px;
+      max-height: 200px;
+      overflow-y: auto;
     }
-    .draft-reply.no-info {
+    .draft-reply.warning {
       border-color: #ffc107;
       background: #fffdf5;
     }
     .draft-reply p {
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .draft-reply p:last-child {
       margin-bottom: 0;
@@ -166,26 +258,61 @@
       background: #fff3cd;
       border: 1px solid #ffc107;
       border-radius: 4px;
-      padding: 10px;
-      margin-top: 12px;
-      font-size: 13px;
+      padding: 8px 10px;
+      margin-top: 10px;
+      font-size: 12px;
       color: #856404;
     }
     .low-confidence {
       border-bottom: 2px dotted #dc3545;
-      position: relative;
     }
     .low-confidence-tag {
       font-size: 10px;
       color: #dc3545;
       margin-left: 4px;
     }
+    /* Failed lookup */
+    .lookup-failed {
+      background: #ffebee;
+      border: 1px solid #ffcdd2;
+      border-radius: 6px;
+      padding: 16px;
+      text-align: center;
+    }
+    .lookup-failed-icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+    .lookup-failed h3 {
+      font-size: 14px;
+      color: #c62828;
+      margin-bottom: 6px;
+    }
+    .lookup-failed p {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 12px;
+    }
+    .lookup-failed .btn {
+      margin: 4px;
+    }
+    .officer-draft-kept {
+      background: #e8f5e9;
+      border: 1px solid #c8e6c9;
+      border-radius: 4px;
+      padding: 10px;
+      margin-top: 12px;
+      font-size: 13px;
+    }
+    .officer-draft-kept strong {
+      color: #2e7d32;
+    }
     .policy-panel {
       background: #f8f9fa;
       border: 1px solid #dee2e6;
       border-radius: 6px;
-      padding: 15px;
-      margin-top: 15px;
+      padding: 12px;
+      margin-top: 12px;
       display: none;
     }
     .policy-panel.visible {
@@ -195,11 +322,11 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
     .policy-panel-title {
       font-weight: 600;
-      font-size: 14px;
+      font-size: 13px;
     }
     .policy-panel-close {
       background: none;
@@ -212,19 +339,22 @@
       background: #fff3cd;
       padding: 10px;
       border-radius: 4px;
-      font-size: 14px;
+      font-size: 13px;
     }
-    .actions {
-      display: flex;
-      gap: 10px;
-      padding: 20px;
+    .actions-bar {
+      display: none;
+      gap: 8px;
+      padding: 14px 16px;
       background: #f8f9fa;
+      border-top: 1px solid #eee;
       border-radius: 0 0 8px 8px;
+      flex-wrap: wrap;
+      align-items: center;
     }
     .btn {
-      padding: 10px 20px;
+      padding: 8px 16px;
       border-radius: 6px;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 500;
       cursor: pointer;
       border: none;
@@ -248,7 +378,7 @@
     .btn-text {
       background: none;
       color: #0066cc;
-      padding: 10px;
+      padding: 8px;
     }
     .btn-text:hover {
       text-decoration: underline;
@@ -257,14 +387,46 @@
       margin-left: auto;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       color: #666;
-      font-size: 13px;
+      font-size: 12px;
     }
     .timer-value {
       font-family: monospace;
-      font-size: 16px;
+      font-size: 14px;
       color: #333;
+    }
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 12px;
+      border: 2px solid #b3d7ff;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 14px;
+      line-height: 1.5;
+      resize: vertical;
+    }
+    .edit-area {
+      display: none;
+    }
+    .edit-mode .draft-reply {
+      display: none;
+    }
+    .edit-mode .edit-area {
+      display: block;
+    }
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 300px;
+      color: #666;
+    }
+    .empty-state-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
     }
     .modal {
       display: none;
@@ -283,49 +445,44 @@
     }
     .modal-content {
       background: white;
-      padding: 30px;
+      padding: 24px;
       border-radius: 12px;
-      max-width: 500px;
+      max-width: 450px;
       text-align: center;
     }
     .modal-content h2 {
-      margin-bottom: 15px;
+      margin-bottom: 12px;
+      font-size: 18px;
     }
-    .modal-content p {
+    .modal-content > p {
       color: #666;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
+      font-size: 14px;
     }
     .result-stats {
       background: #f8f9fa;
-      padding: 15px;
+      padding: 12px;
       border-radius: 8px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       text-align: left;
+      font-size: 13px;
     }
     .result-stats div {
       display: flex;
       justify-content: space-between;
-      padding: 5px 0;
+      padding: 4px 0;
     }
-    textarea {
-      width: 100%;
-      min-height: 150px;
-      padding: 15px;
-      border: 2px solid #b3d7ff;
-      border-radius: 6px;
-      font-family: inherit;
-      font-size: 14px;
-      line-height: 1.5;
-      resize: vertical;
-    }
-    .edit-mode .draft-reply {
-      display: none;
-    }
-    .edit-mode .edit-area {
-      display: block;
-    }
-    .edit-area {
-      display: none;
+    @media (max-width: 900px) {
+      .layout {
+        flex-direction: column;
+      }
+      .inbox-panel {
+        width: 100%;
+        max-height: 300px;
+      }
+      .detail-panel {
+        max-height: none;
+      }
     }
   </style>
 </head>
@@ -333,77 +490,88 @@
   <div class="container">
     <div class="banner">
       This is a prototype with synthetic data for testing purposes. All names, policies, and details are made up.
-      <span class="scenario-badge" id="scenario-badge">Scenario 1 of 5</span>
-      <div class="scenario-selector">
-        <label for="scenario-select">Demo mode:</label>
-        <select id="scenario-select">
-          <option value="random">Random scenario</option>
-          <option value="1">1. CPF withdrawal at 55 (standard)</option>
-          <option value="2">2. Medisave (outdated source)</option>
-          <option value="3">3. CPF for car (no source)</option>
-          <option value="4">4. CPF LIFE payout (standard)</option>
-          <option value="5">5. Full Retirement Sum (standard)</option>
-        </select>
-        <button onclick="loadSelectedScenario()">Load</button>
-      </div>
     </div>
 
-    <div class="header">
-      <h1 id="enquiry-id">Enquiry #SG-2026-11847 (made up)</h1>
-      <div class="meta" id="enquiry-meta">From: resident_email@example.com (made up) | Received: 18 Nov 2026, 9:32 AM</div>
-    </div>
-
-    <div class="main">
-      <div class="section">
-        <div class="section-title">Resident's Enquiry</div>
-        <div class="enquiry-text" id="enquiry-text">
-          Loading...
+    <div class="layout">
+      <!-- Inbox Panel -->
+      <div class="inbox-panel">
+        <div class="inbox-header">
+          <h2>Enquiry Inbox</h2>
+          <div class="topic-filter" id="topic-filter">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+        <div class="inbox-list" id="inbox-list">
+          <!-- Populated by JS -->
         </div>
       </div>
 
-      <div class="section" id="reply-section">
-        <div class="section-title">Reply</div>
-
-        <div id="generate-section">
-          <p style="color: #666; margin-bottom: 15px;">Click the button below to generate an AI-drafted reply based on the enquiry.</p>
-          <button class="btn btn-primary" id="generate-btn" onclick="generateDraft()">
-            <svg viewBox="0 0 24 24" fill="currentColor" style="width: 16px; height: 16px; margin-right: 6px; vertical-align: middle;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-            Generate AI Draft
-          </button>
+      <!-- Detail Panel -->
+      <div class="detail-panel">
+        <div class="detail-header" id="detail-header">
+          <h1 id="enquiry-id">Select an enquiry</h1>
+          <div class="meta" id="enquiry-meta"></div>
         </div>
-
-        <div id="draft-section" style="display: none;">
-          <div class="draft-label" id="draft-label">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-            <span id="draft-label-text">AI-drafted reply with citations</span>
+        <div class="detail-content" id="detail-content">
+          <div class="empty-state" id="empty-state">
+            <div class="empty-state-icon">📬</div>
+            <p>Select an enquiry from the inbox to view details</p>
           </div>
+          <div id="enquiry-detail" style="display: none;">
+            <div class="section-title">Resident's Enquiry</div>
+            <div class="enquiry-text" id="enquiry-text"></div>
 
-          <div class="draft-reply" id="draft-display">
-            Loading...
-          </div>
-
-          <div class="edit-area">
-            <textarea id="edit-textarea"></textarea>
-          </div>
-
-          <div class="policy-panel" id="policy-panel">
-            <div class="policy-panel-header">
-              <span class="policy-panel-title" id="policy-title">Policy Source</span>
-              <button class="policy-panel-close" onclick="closePolicy()">&times;</button>
+            <div class="section-title">Reply</div>
+            <div id="generate-section" class="generate-section">
+              <p>Generate an AI-drafted reply based on this enquiry.</p>
+              <button class="btn btn-primary" onclick="generateDraft()">Generate AI Draft</button>
             </div>
-            <div class="policy-highlight" id="policy-content"></div>
-            <p style="font-size: 11px; color: #666; margin-top: 10px;">(made up policy text for prototype)</p>
+
+            <div id="draft-section" class="draft-section">
+              <div class="draft-label" id="draft-label">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                <span id="draft-label-text">AI-drafted reply with citations</span>
+              </div>
+
+              <div class="draft-reply" id="draft-display"></div>
+
+              <div class="edit-area">
+                <textarea id="edit-textarea"></textarea>
+              </div>
+
+              <div class="policy-panel" id="policy-panel">
+                <div class="policy-panel-header">
+                  <span class="policy-panel-title" id="policy-title">Policy Source</span>
+                  <button class="policy-panel-close" onclick="closePolicy()">&times;</button>
+                </div>
+                <div class="policy-highlight" id="policy-content"></div>
+                <p style="font-size: 11px; color: #666; margin-top: 8px;">(made up policy text for prototype)</p>
+              </div>
+            </div>
+
+            <div id="lookup-failed-section" style="display: none;">
+              <div class="lookup-failed">
+                <div class="lookup-failed-icon">⚠️</div>
+                <h3>Policy lookup failed</h3>
+                <p id="lookup-failed-message">Could not find a matching policy source for this enquiry.</p>
+                <button class="btn btn-primary" onclick="retryLookup()">Retry Lookup</button>
+                <button class="btn btn-secondary" onclick="writeManually()">Write Manually</button>
+              </div>
+              <div class="officer-draft-kept" id="officer-draft-kept" style="display: none;">
+                <strong>Your draft is saved:</strong>
+                <p id="kept-draft-preview"></p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="actions" id="actions-bar" style="display: none;">
-        <button class="btn btn-primary" id="send-btn" onclick="sendReply()">Send Reply</button>
-        <button class="btn btn-secondary" id="edit-btn" onclick="toggleEdit()">Edit Draft</button>
-        <button class="btn btn-text" onclick="rewriteFromScratch()">Rewrite from scratch</button>
-        <div class="timer">
-          <span>Time on this enquiry:</span>
-          <span class="timer-value" id="timer">0:00</span>
+        <div class="actions-bar" id="actions-bar">
+          <button class="btn btn-primary" onclick="sendReply()">Send Reply</button>
+          <button class="btn btn-secondary" id="edit-btn" onclick="toggleEdit()">Edit Draft</button>
+          <button class="btn btn-text" onclick="rewriteFromScratch()">Rewrite from scratch</button>
+          <div class="timer">
+            <span>Time:</span>
+            <span class="timer-value" id="timer">0:00</span>
+          </div>
         </div>
       </div>
     </div>
@@ -414,66 +582,79 @@
       <h2 id="modal-title">Reply Sent</h2>
       <p id="modal-message">Thank you for testing this prototype.</p>
       <div class="result-stats">
-        <div><span>Scenario:</span><strong id="stat-scenario">-</strong></div>
+        <div><span>Enquiry:</span><strong id="stat-scenario">-</strong></div>
+        <div><span>Topic:</span><strong id="stat-topic">-</strong></div>
         <div><span>Action taken:</span><strong id="stat-action">-</strong></div>
         <div><span>Time spent:</span><strong id="stat-time">-</strong></div>
         <div><span>Citations viewed:</span><strong id="stat-citations">-</strong></div>
       </div>
-      <p style="font-size: 13px; color: #666;">This data helps us understand if officers trust cited drafts enough to edit them, or if they rewrite from scratch.</p>
-      <button class="btn btn-primary" onclick="location.reload()">Test Another Enquiry</button>
+      <p style="font-size: 12px; color: #666;">This data helps us understand if officers trust cited drafts.</p>
+      <button class="btn btn-primary" onclick="closeModal()">Continue Testing</button>
     </div>
   </div>
 
   <script>
-    // Scenarios based on context-skill.md test questions (all made up)
+    // Topics (6 fixed + Other)
+    const TOPICS = [
+      { id: 'all', name: 'All' },
+      { id: 'retirement', name: 'Retirement' },
+      { id: 'withdrawal', name: 'Withdrawal' },
+      { id: 'cpf-life', name: 'CPF LIFE' },
+      { id: 'medisave', name: 'Medisave' },
+      { id: 'housing', name: 'Housing' },
+      { id: 'fees', name: 'Fees' },
+      { id: 'other', name: 'Other' }
+    ];
+
+    // Scenarios based on context-skill.md (all made up)
     const scenarios = [
       {
-        id: 1,
-        type: 'standard',
-        enquiryId: 'SG-2026-11847',
+        id: 'SG-2026-11847',
         email: 'tan_ah_kow@example.com',
-        date: '18 Nov 2026, 9:32 AM',
+        date: '18 Nov, 9:32 AM',
+        topic: 'retirement',
+        preview: 'Hi, I recently turned 55 and I heard I can withdraw...',
         enquiry: `Hi, I recently turned 55 and I heard I can withdraw some of my CPF savings. How much can I take out and what do I need to do? Also, will this affect my retirement payouts later? Thanks.<br><br><em style="color: #666;">(made up enquiry)</em>`,
+        lookupSuccess: true,
         draftLabel: 'AI-drafted reply with citations',
         draftHtml: `
           <p>Dear Resident,</p>
           <p>Thank you for reaching out about your CPF withdrawal options at age 55.</p>
-          <p>When you turn 55, you may withdraw your CPF savings above the Full Retirement Sum (FRS), which is currently $205,800 for members turning 55 in 2026.<a href="#" class="citation" data-policy="cpf-frs">CPF-001</a> (made up figure)</p>
+          <p>When you turn 55, you may withdraw your CPF savings above the Full Retirement Sum (FRS), which is currently $205,800 for members turning 55 in 2026.<a href="#" class="citation" data-policy="cpf-frs">CPF-001</a> (made up)</p>
           <p>To make a withdrawal, you can submit a request through the CPF website or visit any CPF Service Centre with your NRIC.<a href="#" class="citation" data-policy="cpf-withdrawal">CPF-002</a></p>
-          <p><span class="low-confidence">Your monthly retirement payouts under CPF LIFE will be based on the amount remaining in your Retirement Account after any withdrawals.</span><span class="low-confidence-tag">(verify)</span><a href="#" class="citation" data-policy="cpf-life">CPF-003</a></p>
-          <p>If you need further assistance, please let us know.</p>
+          <p><span class="low-confidence">Your monthly retirement payouts under CPF LIFE will be based on the amount remaining in your Retirement Account.</span><span class="low-confidence-tag">(verify)</span><a href="#" class="citation" data-policy="cpf-life">CPF-003</a></p>
           <p>Warm regards,<br>ServiceSG</p>
         `,
         draftPlain: `Dear Resident,
 
 Thank you for reaching out about your CPF withdrawal options at age 55.
 
-When you turn 55, you may withdraw your CPF savings above the Full Retirement Sum (FRS), which is currently $205,800 for members turning 55 in 2026. [CPF-001] (made up figure)
+When you turn 55, you may withdraw your CPF savings above the Full Retirement Sum (FRS), which is currently $205,800 for members turning 55 in 2026. [CPF-001] (made up)
 
 To make a withdrawal, you can submit a request through the CPF website or visit any CPF Service Centre with your NRIC. [CPF-002]
 
-Your monthly retirement payouts under CPF LIFE will be based on the amount remaining in your Retirement Account after any withdrawals. [CPF-003]
-
-If you need further assistance, please let us know.
+Your monthly retirement payouts under CPF LIFE will be based on the amount remaining in your Retirement Account. [CPF-003]
 
 Warm regards,
 ServiceSG`,
         citationCount: 3
       },
       {
-        id: 2,
-        type: 'outdated-source',
-        enquiryId: 'SG-2026-11923',
+        id: 'SG-2026-11923',
         email: 'lim_mei_ling@example.com',
-        date: '18 Nov 2026, 10:15 AM',
+        date: '18 Nov, 10:15 AM',
+        topic: 'medisave',
+        preview: 'Can I use my Medisave to pay for my elderly mother\'s...',
         enquiry: `Hello, can I use my Medisave to pay for my elderly mother's hospital bill? She is a Singapore Citizen. What is the withdrawal limit?<br><br><em style="color: #666;">(made up enquiry)</em>`,
+        lookupSuccess: true,
         draftLabel: 'AI-drafted reply with citations',
+        draftLabelClass: 'warning',
+        draftClass: 'warning',
         draftHtml: `
           <p>Dear Resident,</p>
           <p>Thank you for your enquiry about using Medisave for your mother's hospital bill.</p>
           <p>You may use your Medisave to pay for your parent's hospital bill if they are a Singapore Citizen or Permanent Resident. The claim limit depends on the type of treatment.<a href="#" class="citation" data-policy="medisave">CPF-004</a></p>
-          <div class="outdated-warning">⚠️ <strong>Note:</strong> This source (CPF-004) was last reviewed on 2026-07-10 and may be outdated. Please verify the current limits with the CPF website before sending.</div>
-          <p>If you need further assistance, please let us know.</p>
+          <div class="outdated-warning">This source (CPF-004) was last reviewed on 2026-07-10 and may be outdated. Please verify before sending.</div>
           <p>Warm regards,<br>ServiceSG</p>
         `,
         draftPlain: `Dear Resident,
@@ -482,60 +663,56 @@ Thank you for your enquiry about using Medisave for your mother's hospital bill.
 
 You may use your Medisave to pay for your parent's hospital bill if they are a Singapore Citizen or Permanent Resident. The claim limit depends on the type of treatment. [CPF-004]
 
-⚠️ Note: This source (CPF-004) was last reviewed on 2026-07-10 and may be outdated. Please verify the current limits with the CPF website before sending.
-
-If you need further assistance, please let us know.
+Note: This source may be outdated. Please verify before sending.
 
 Warm regards,
 ServiceSG`,
         citationCount: 1
       },
       {
-        id: 3,
-        type: 'no-source',
-        enquiryId: 'SG-2026-12001',
+        id: 'SG-2026-12001',
         email: 'wong_david@example.com',
-        date: '18 Nov 2026, 11:42 AM',
+        date: '18 Nov, 11:42 AM',
+        topic: 'other',
+        preview: 'Hi, I want to buy a new car. Can I withdraw my CPF...',
         enquiry: `Hi, I want to buy a new car. Can I withdraw my CPF money to pay for it?<br><br><em style="color: #666;">(made up enquiry)</em>`,
+        lookupSuccess: true,
         draftLabel: 'No matching policy source',
-        draftLabelClass: 'no-info',
-        draftClass: 'no-info',
+        draftLabelClass: 'warning',
+        draftClass: 'warning',
         draftHtml: `
           <p>Dear Resident,</p>
           <p>Thank you for your enquiry.</p>
-          <p><strong>I don't have information on this topic.</strong> The policy sources available to me do not cover CPF withdrawals for vehicle purchases.</p>
-          <p>I recommend checking directly with CPF Board at <em>cpf.gov.sg</em> or calling the CPF hotline for accurate information on this matter.</p>
-          <p>Apologies for the inconvenience.</p>
+          <p><strong>I don't have information on this topic.</strong> The policy sources available do not cover CPF withdrawals for vehicle purchases.</p>
+          <p>I recommend checking directly with CPF Board at <em>cpf.gov.sg</em> or calling the CPF hotline.</p>
           <p>Warm regards,<br>ServiceSG</p>
         `,
         draftPlain: `Dear Resident,
 
 Thank you for your enquiry.
 
-I don't have information on this topic. The policy sources available to me do not cover CPF withdrawals for vehicle purchases.
+I don't have information on this topic. The policy sources available do not cover CPF withdrawals for vehicle purchases.
 
-I recommend checking directly with CPF Board at cpf.gov.sg or calling the CPF hotline for accurate information on this matter.
-
-Apologies for the inconvenience.
+I recommend checking directly with CPF Board at cpf.gov.sg or calling the CPF hotline.
 
 Warm regards,
 ServiceSG`,
         citationCount: 0
       },
       {
-        id: 4,
-        type: 'standard',
-        enquiryId: 'SG-2026-12087',
+        id: 'SG-2026-12087',
         email: 'chen_shu_hui@example.com',
-        date: '18 Nov 2026, 2:05 PM',
+        date: '18 Nov, 2:05 PM',
+        topic: 'cpf-life',
+        preview: 'I will be turning 65 next year. What will my monthly...',
         enquiry: `Good afternoon, I will be turning 65 next year. What will my monthly CPF LIFE payout be? How is it calculated?<br><br><em style="color: #666;">(made up enquiry)</em>`,
+        lookupSuccess: true,
         draftLabel: 'AI-drafted reply with citations',
         draftHtml: `
           <p>Dear Resident,</p>
           <p>Thank you for your enquiry about CPF LIFE payouts.</p>
           <p>CPF LIFE provides monthly payouts from age 65 for life. The payout amount depends on the balance in your Retirement Account when payouts begin.<a href="#" class="citation" data-policy="cpf-life">CPF-003</a></p>
-          <p>The exact monthly amount varies based on the CPF LIFE plan you choose and your Retirement Account balance at payout start. You can use the CPF LIFE estimator on the CPF website to get a personalised estimate.</p>
-          <p>If you need further assistance, please let us know.</p>
+          <p>You can use the CPF LIFE estimator on the CPF website for a personalised estimate.</p>
           <p>Warm regards,<br>ServiceSG</p>
         `,
         draftPlain: `Dear Resident,
@@ -544,39 +721,73 @@ Thank you for your enquiry about CPF LIFE payouts.
 
 CPF LIFE provides monthly payouts from age 65 for life. The payout amount depends on the balance in your Retirement Account when payouts begin. [CPF-003]
 
-The exact monthly amount varies based on the CPF LIFE plan you choose and your Retirement Account balance at payout start. You can use the CPF LIFE estimator on the CPF website to get a personalised estimate.
-
-If you need further assistance, please let us know.
+You can use the CPF LIFE estimator on the CPF website for a personalised estimate.
 
 Warm regards,
 ServiceSG`,
         citationCount: 1
       },
       {
-        id: 5,
-        type: 'standard',
-        enquiryId: 'SG-2026-12134',
+        id: 'SG-2026-12134',
         email: 'raj_kumar@example.com',
-        date: '18 Nov 2026, 3:28 PM',
+        date: '18 Nov, 3:28 PM',
+        topic: 'retirement',
+        preview: 'What is the Full Retirement Sum for 2026?',
         enquiry: `Hi, what is the Full Retirement Sum for 2026? I'm trying to plan my CPF withdrawal.<br><br><em style="color: #666;">(made up enquiry)</em>`,
+        lookupSuccess: true,
         draftLabel: 'AI-drafted reply with citations',
         draftHtml: `
           <p>Dear Resident,</p>
           <p>Thank you for your enquiry about the Full Retirement Sum.</p>
-          <p>The Full Retirement Sum (FRS) for members turning 55 in 2026 is <strong>$205,800</strong>.<a href="#" class="citation" data-policy="cpf-frs">CPF-001</a> (made up figure)</p>
-          <p>Members who wish to withdraw their CPF savings at 55 may withdraw amounts above the FRS in their Combined Balances.</p>
-          <p>If you need further assistance, please let us know.</p>
+          <p>The Full Retirement Sum (FRS) for members turning 55 in 2026 is <strong>$205,800</strong>.<a href="#" class="citation" data-policy="cpf-frs">CPF-001</a> (made up)</p>
+          <p>Members who wish to withdraw at 55 may withdraw amounts above the FRS.</p>
           <p>Warm regards,<br>ServiceSG</p>
         `,
         draftPlain: `Dear Resident,
 
 Thank you for your enquiry about the Full Retirement Sum.
 
-The Full Retirement Sum (FRS) for members turning 55 in 2026 is $205,800. [CPF-001] (made up figure)
+The Full Retirement Sum (FRS) for members turning 55 in 2026 is $205,800. [CPF-001] (made up)
 
-Members who wish to withdraw their CPF savings at 55 may withdraw amounts above the FRS in their Combined Balances.
+Members who wish to withdraw at 55 may withdraw amounts above the FRS.
 
-If you need further assistance, please let us know.
+Warm regards,
+ServiceSG`,
+        citationCount: 1
+      },
+      {
+        id: 'SG-2026-12156',
+        email: 'ng_wei_lin@example.com',
+        date: '18 Nov, 4:10 PM',
+        topic: 'fees',
+        preview: 'What are the fees for transferring CPF to my spouse?',
+        enquiry: `Hi, what are the fees for transferring CPF savings to my spouse's account? Is there any administrative charge?<br><br><em style="color: #666;">(made up enquiry)</em>`,
+        lookupSuccess: false,
+        failureMessage: 'Policy lookup failed for "fees" topic. No matching source found in the knowledge base.'
+      },
+      {
+        id: 'SG-2026-12178',
+        email: 'lee_jia_yi@example.com',
+        date: '18 Nov, 4:45 PM',
+        topic: 'withdrawal',
+        preview: 'How do I apply to withdraw my CPF at 55?',
+        enquiry: `Hello, I am turning 55 next month. How do I apply to withdraw my CPF savings? Can I do it online?<br><br><em style="color: #666;">(made up enquiry)</em>`,
+        lookupSuccess: true,
+        draftLabel: 'AI-drafted reply with citations',
+        draftHtml: `
+          <p>Dear Resident,</p>
+          <p>Thank you for your enquiry about CPF withdrawal at 55.</p>
+          <p>You can apply for CPF withdrawal online via the CPF website using Singpass, or visit any CPF Service Centre with your NRIC.<a href="#" class="citation" data-policy="cpf-withdrawal">CPF-002</a></p>
+          <p>Online applications are typically processed within 5 working days.</p>
+          <p>Warm regards,<br>ServiceSG</p>
+        `,
+        draftPlain: `Dear Resident,
+
+Thank you for your enquiry about CPF withdrawal at 55.
+
+You can apply for CPF withdrawal online via the CPF website using Singpass, or visit any CPF Service Centre with your NRIC. [CPF-002]
+
+Online applications are typically processed within 5 working days.
 
 Warm regards,
 ServiceSG`,
@@ -584,108 +795,164 @@ ServiceSG`,
       }
     ];
 
-    // Policy data (made up) - aligned with context-skill.md sources
+    // Policy data (made up) - aligned with context-skill.md
     const policies = {
       'cpf-frs': {
         title: 'CPF-001: CPF Retirement Sum (made up)',
-        content: 'The Full Retirement Sum (FRS) for members turning 55 in 2026 is $205,800. Members who wish to withdraw their CPF savings at 55 may withdraw amounts above the FRS in their Combined Balances.',
+        content: 'The Full Retirement Sum (FRS) for members turning 55 in 2026 is $205,800. Members may withdraw amounts above the FRS.',
         lastReviewed: '2026-10-01'
       },
       'cpf-withdrawal': {
         title: 'CPF-002: CPF Withdrawal at 55 (made up)',
-        content: 'Members can apply for CPF withdrawal online via the CPF website using Singpass, or in person at any CPF Service Centre. Bring your NRIC for verification.',
+        content: 'Members can apply online via CPF website using Singpass, or at any CPF Service Centre with NRIC.',
         lastReviewed: '2026-09-15'
       },
       'cpf-life': {
         title: 'CPF-003: CPF LIFE Payouts (made up)',
-        content: 'CPF LIFE provides monthly payouts from age 65 for life. The payout amount depends on the balance in your Retirement Account when payouts begin.',
+        content: 'CPF LIFE provides monthly payouts from age 65 for life. Payout depends on Retirement Account balance.',
         lastReviewed: '2026-08-20'
       },
       'medisave': {
         title: 'CPF-004: Medisave Withdrawal (made up)',
-        content: 'You may use your Medisave to pay for approved medical expenses for yourself, your spouse, children, parents, grandparents, and siblings. Claim limits depend on treatment type.',
+        content: 'You may use Medisave for approved medical expenses for yourself, spouse, children, parents, grandparents, and siblings.',
         lastReviewed: '2026-07-10'
       }
     };
 
-    // Select scenario (check URL param or default to random)
-    function getInitialScenario() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const scenarioParam = urlParams.get('scenario');
-      if (scenarioParam && scenarioParam !== 'random') {
-        const scenarioId = parseInt(scenarioParam);
-        const found = scenarios.find(s => s.id === scenarioId);
-        if (found) {
-          document.getElementById('scenario-select').value = scenarioParam;
-          return found;
-        }
-      }
-      return scenarios[Math.floor(Math.random() * scenarios.length)];
-    }
-
-    let currentScenario = getInitialScenario();
-
-    // Prototype tracking
+    // State
+    let currentFilter = 'all';
+    let selectedEnquiry = null;
     let startTime = null;
     let citationsViewed = new Set();
     let isEditing = false;
     let originalDraft = '';
-    let draftGenerated = false;
+    let officerDraft = '';
+    let retryCount = 0;
 
-    // Load selected scenario from dropdown
-    function loadSelectedScenario() {
-      const selected = document.getElementById('scenario-select').value;
-      if (selected === 'random') {
-        window.location.href = window.location.pathname;
-      } else {
-        window.location.href = window.location.pathname + '?scenario=' + selected;
+    // Initialize
+    function init() {
+      renderTopicFilter();
+      renderInbox();
+
+      // Check URL param for pre-selected enquiry
+      const urlParams = new URLSearchParams(window.location.search);
+      const enquiryParam = urlParams.get('enquiry');
+      if (enquiryParam) {
+        const found = scenarios.find(s => s.id === enquiryParam);
+        if (found) selectEnquiry(found);
       }
     }
 
-    // Initialize page with scenario
-    function initScenario() {
-      document.getElementById('scenario-badge').textContent = `Scenario ${currentScenario.id} of ${scenarios.length}`;
-      document.getElementById('enquiry-id').textContent = `Enquiry #${currentScenario.enquiryId} (made up)`;
-      document.getElementById('enquiry-meta').textContent = `From: ${currentScenario.email} (made up) | Received: ${currentScenario.date}`;
-      document.getElementById('enquiry-text').innerHTML = currentScenario.enquiry;
+    function renderTopicFilter() {
+      const container = document.getElementById('topic-filter');
+      container.innerHTML = TOPICS.map(topic => {
+        const count = topic.id === 'all'
+          ? scenarios.length
+          : scenarios.filter(s => s.topic === topic.id).length;
+        return `<button class="topic-btn ${topic.id === currentFilter ? 'active' : ''}"
+                        onclick="filterByTopic('${topic.id}')">
+          ${topic.name}<span class="count">(${count})</span>
+        </button>`;
+      }).join('');
     }
 
-    initScenario();
+    function renderInbox() {
+      const container = document.getElementById('inbox-list');
+      const filtered = currentFilter === 'all'
+        ? scenarios
+        : scenarios.filter(s => s.topic === currentFilter);
 
-    // Timer (starts when draft is generated)
-    setInterval(() => {
-      if (startTime) {
-        const elapsed = Math.floor((Date.now() - startTime) / 1000);
-        const mins = Math.floor(elapsed / 60);
-        const secs = elapsed % 60;
-        document.getElementById('timer').textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="padding: 24px; text-align: center; color: #666;">
+            <p>No enquiries for this topic.</p>
+          </div>`;
+        return;
       }
-    }, 1000);
 
-    // Generate draft function
+      container.innerHTML = filtered.map(s => `
+        <div class="inbox-item ${selectedEnquiry?.id === s.id ? 'selected' : ''}"
+             onclick="selectEnquiry(scenarios.find(x => x.id === '${s.id}'))">
+          <div class="inbox-item-header">
+            <span class="inbox-item-id">#${s.id}</span>
+            <span class="inbox-item-time">${s.date}</span>
+          </div>
+          <div class="inbox-item-preview">${s.preview}</div>
+          <span class="topic-label ${s.topic}">${TOPICS.find(t => t.id === s.topic)?.name || 'Other'}</span>
+        </div>
+      `).join('');
+    }
+
+    function filterByTopic(topicId) {
+      currentFilter = topicId;
+      renderTopicFilter();
+      renderInbox();
+    }
+
+    function selectEnquiry(scenario) {
+      selectedEnquiry = scenario;
+      startTime = null;
+      citationsViewed = new Set();
+      isEditing = false;
+      officerDraft = '';
+      retryCount = 0;
+
+      // Update inbox selection
+      renderInbox();
+
+      // Update detail panel
+      document.getElementById('empty-state').style.display = 'none';
+      document.getElementById('enquiry-detail').style.display = 'block';
+      document.getElementById('enquiry-id').textContent = `Enquiry #${scenario.id} (made up)`;
+      document.getElementById('enquiry-meta').textContent = `From: ${scenario.email} (made up) | Received: ${scenario.date}`;
+      document.getElementById('enquiry-text').innerHTML = scenario.enquiry;
+
+      // Reset reply section
+      document.getElementById('generate-section').style.display = 'block';
+      document.getElementById('draft-section').style.display = 'none';
+      document.getElementById('lookup-failed-section').style.display = 'none';
+      document.getElementById('actions-bar').style.display = 'none';
+      document.getElementById('policy-panel').classList.remove('visible');
+
+      // Reset timer display
+      document.getElementById('timer').textContent = '0:00';
+    }
+
     function generateDraft() {
-      // Hide generate button, show draft
+      startTime = Date.now();
       document.getElementById('generate-section').style.display = 'none';
+
+      if (!selectedEnquiry.lookupSuccess) {
+        showLookupFailed();
+        return;
+      }
+
+      showDraft();
+    }
+
+    function showDraft() {
       document.getElementById('draft-section').style.display = 'block';
+      document.getElementById('lookup-failed-section').style.display = 'none';
       document.getElementById('actions-bar').style.display = 'flex';
 
-      // Set draft content based on scenario
-      document.getElementById('draft-label-text').textContent = currentScenario.draftLabel;
-      document.getElementById('draft-display').innerHTML = currentScenario.draftHtml;
-      document.getElementById('edit-textarea').value = currentScenario.draftPlain;
-      originalDraft = currentScenario.draftPlain;
+      const labelEl = document.getElementById('draft-label');
+      const displayEl = document.getElementById('draft-display');
 
-      // Apply special styling for no-info scenarios
-      if (currentScenario.draftLabelClass) {
-        document.getElementById('draft-label').classList.add(currentScenario.draftLabelClass);
-      }
-      if (currentScenario.draftClass) {
-        document.getElementById('draft-display').classList.add(currentScenario.draftClass);
-      }
+      // Reset classes
+      labelEl.className = 'draft-label';
+      displayEl.className = 'draft-reply';
 
-      // Start timer now
-      startTime = Date.now();
-      draftGenerated = true;
+      document.getElementById('draft-label-text').textContent = selectedEnquiry.draftLabel;
+      displayEl.innerHTML = selectedEnquiry.draftHtml;
+      document.getElementById('edit-textarea').value = selectedEnquiry.draftPlain;
+      originalDraft = selectedEnquiry.draftPlain;
+
+      if (selectedEnquiry.draftLabelClass) {
+        labelEl.classList.add(selectedEnquiry.draftLabelClass);
+      }
+      if (selectedEnquiry.draftClass) {
+        displayEl.classList.add(selectedEnquiry.draftClass);
+      }
 
       // Attach citation handlers
       document.querySelectorAll('.citation').forEach(el => {
@@ -698,11 +965,75 @@ ServiceSG`,
       });
     }
 
+    function showLookupFailed() {
+      document.getElementById('draft-section').style.display = 'none';
+      document.getElementById('lookup-failed-section').style.display = 'block';
+      document.getElementById('actions-bar').style.display = 'none';
+
+      document.getElementById('lookup-failed-message').textContent =
+        selectedEnquiry.failureMessage || 'Could not find a matching policy source for this enquiry.';
+
+      // Show kept draft if officer has typed something
+      const keptSection = document.getElementById('officer-draft-kept');
+      if (officerDraft) {
+        keptSection.style.display = 'block';
+        document.getElementById('kept-draft-preview').textContent =
+          officerDraft.substring(0, 100) + (officerDraft.length > 100 ? '...' : '');
+      } else {
+        keptSection.style.display = 'none';
+      }
+    }
+
+    function retryLookup() {
+      retryCount++;
+
+      // Simulate retry - fees always fails per PROMPTS.md
+      if (selectedEnquiry.topic === 'fees') {
+        document.getElementById('lookup-failed-message').textContent =
+          `Retry ${retryCount}: Still no matching policy source found for "fees" topic.`;
+        return;
+      }
+
+      // For other topics, would succeed (not applicable in current scenarios)
+      showDraft();
+    }
+
+    function writeManually() {
+      // Switch to manual writing mode
+      document.getElementById('lookup-failed-section').style.display = 'none';
+      document.getElementById('draft-section').style.display = 'block';
+      document.getElementById('actions-bar').style.display = 'flex';
+
+      const labelEl = document.getElementById('draft-label');
+      labelEl.className = 'draft-label warning';
+      document.getElementById('draft-label-text').textContent = 'Manual reply (no AI draft)';
+
+      const draft = officerDraft || `Dear Resident,
+
+Thank you for your enquiry.
+
+[Your reply here]
+
+Warm regards,
+ServiceSG`;
+
+      document.getElementById('draft-display').innerHTML = `<p style="color: #666;">${draft.replace(/\n/g, '<br>')}</p>`;
+      document.getElementById('edit-textarea').value = draft;
+      originalDraft = draft;
+
+      // Auto-enter edit mode
+      isEditing = true;
+      document.getElementById('reply-section')?.classList.add('edit-mode');
+      document.getElementById('draft-section').classList.add('edit-mode');
+      document.getElementById('edit-btn').textContent = 'View Draft';
+    }
+
     function showPolicy(policyId) {
       const policy = policies[policyId];
       if (policy) {
         document.getElementById('policy-title').textContent = policy.title;
-        document.getElementById('policy-content').innerHTML = policy.content + `<br><br><em style="font-size: 12px;">Last reviewed: ${policy.lastReviewed}</em>`;
+        document.getElementById('policy-content').innerHTML =
+          policy.content + `<br><br><em style="font-size: 11px;">Last reviewed: ${policy.lastReviewed}</em>`;
         document.getElementById('policy-panel').classList.add('visible');
       }
     }
@@ -713,8 +1044,13 @@ ServiceSG`,
 
     function toggleEdit() {
       isEditing = !isEditing;
-      document.getElementById('reply-section').classList.toggle('edit-mode', isEditing);
+      document.getElementById('draft-section').classList.toggle('edit-mode', isEditing);
       document.getElementById('edit-btn').textContent = isEditing ? 'View Draft' : 'Edit Draft';
+
+      // Save officer's work
+      if (!isEditing) {
+        officerDraft = document.getElementById('edit-textarea').value;
+      }
     }
 
     function sendReply() {
@@ -734,7 +1070,7 @@ ServiceSG`,
       const timeSpent = Math.floor((Date.now() - startTime) / 1000);
       document.getElementById('edit-textarea').value = 'Dear Resident,\n\n';
       isEditing = true;
-      document.getElementById('reply-section').classList.add('edit-mode');
+      document.getElementById('draft-section').classList.add('edit-mode');
       document.getElementById('edit-btn').textContent = 'View Draft';
 
       showResult('Rewrote from scratch', timeSpent);
@@ -743,22 +1079,49 @@ ServiceSG`,
     function showResult(action, timeSpent) {
       const mins = Math.floor(timeSpent / 60);
       const secs = timeSpent % 60;
+      const topicName = TOPICS.find(t => t.id === selectedEnquiry.topic)?.name || 'Other';
 
-      document.getElementById('stat-scenario').textContent = `${currentScenario.id} (${currentScenario.type})`;
+      document.getElementById('stat-scenario').textContent = `#${selectedEnquiry.id}`;
+      document.getElementById('stat-topic').textContent = topicName;
       document.getElementById('stat-action').textContent = action;
       document.getElementById('stat-time').textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
-      document.getElementById('stat-citations').textContent = citationsViewed.size + ' of ' + currentScenario.citationCount;
+      document.getElementById('stat-citations').textContent =
+        citationsViewed.size + ' of ' + (selectedEnquiry.citationCount || 0);
 
       if (action === 'Rewrote from scratch') {
         document.getElementById('modal-title').textContent = 'Draft Cleared';
-        document.getElementById('modal-message').textContent = 'You chose to rewrite from scratch instead of editing the AI draft.';
+        document.getElementById('modal-message').textContent = 'You chose to rewrite from scratch.';
       } else {
         document.getElementById('modal-title').textContent = 'Reply Sent';
-        document.getElementById('modal-message').textContent = 'Your reply has been recorded for this prototype test.';
+        document.getElementById('modal-message').textContent = 'Your reply has been recorded.';
       }
 
       document.getElementById('result-modal').classList.add('visible');
     }
+
+    function closeModal() {
+      document.getElementById('result-modal').classList.remove('visible');
+
+      // Reset for next enquiry
+      selectedEnquiry = null;
+      document.getElementById('empty-state').style.display = 'flex';
+      document.getElementById('enquiry-detail').style.display = 'none';
+      document.getElementById('enquiry-id').textContent = 'Select an enquiry';
+      document.getElementById('enquiry-meta').textContent = '';
+      renderInbox();
+    }
+
+    // Timer update
+    setInterval(() => {
+      if (startTime) {
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        const mins = Math.floor(elapsed / 60);
+        const secs = elapsed % 60;
+        document.getElementById('timer').textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+      }
+    }, 1000);
+
+    init();
   </script>
 </body>
 </html>
