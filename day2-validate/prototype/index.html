@@ -792,6 +792,267 @@ Online applications are typically processed within 5 working days.
 Warm regards,
 ServiceSG`,
         citationCount: 1
+      },
+      // Housing scenarios
+      {
+        id: 'SG-2026-12201',
+        email: 'goh_ming_hao@example.com',
+        date: '18 Nov, 5:12 PM',
+        topic: 'housing',
+        preview: 'Can I use CPF to pay for my HDB flat?',
+        enquiry: `Hi, I am buying my first HDB flat. Can I use my CPF savings to pay for it? What are the requirements?<br><br><em style="color: #666;">(made up enquiry)</em>`,
+        lookupSuccess: true,
+        draftLabel: 'No matching policy source',
+        draftLabelClass: 'warning',
+        draftClass: 'warning',
+        draftHtml: `
+          <p>Dear Resident,</p>
+          <p>Thank you for your enquiry.</p>
+          <p><strong>I don't have information on this topic.</strong> The policy sources available do not cover CPF usage for housing purchases.</p>
+          <p>I recommend checking with HDB at <em>hdb.gov.sg</em> or the CPF Board website for information on using CPF for housing.</p>
+          <p>Warm regards,<br>ServiceSG</p>
+        `,
+        draftPlain: `Dear Resident,
+
+Thank you for your enquiry.
+
+I don't have information on this topic. The policy sources available do not cover CPF usage for housing purchases.
+
+I recommend checking with HDB at hdb.gov.sg or the CPF Board website for information on using CPF for housing.
+
+Warm regards,
+ServiceSG`,
+        citationCount: 0
+      },
+      {
+        id: 'SG-2026-12223',
+        email: 'tan_li_hua@example.com',
+        date: '18 Nov, 5:38 PM',
+        topic: 'housing',
+        preview: 'How much CPF can I use for my housing loan?',
+        enquiry: `Good evening, I want to know how much of my CPF I can use for my housing loan monthly instalments. Is there a limit?<br><br><em style="color: #666;">(made up enquiry)</em>`,
+        lookupSuccess: true,
+        draftLabel: 'No matching policy source',
+        draftLabelClass: 'warning',
+        draftClass: 'warning',
+        draftHtml: `
+          <p>Dear Resident,</p>
+          <p>Thank you for your enquiry.</p>
+          <p><strong>I don't have information on this topic.</strong> The policy sources available do not cover CPF housing loan limits.</p>
+          <p>Please check the CPF Board website or contact HDB for details on CPF usage for housing loans.</p>
+          <p>Warm regards,<br>ServiceSG</p>
+        `,
+        draftPlain: `Dear Resident,
+
+Thank you for your enquiry.
+
+I don't have information on this topic. The policy sources available do not cover CPF housing loan limits.
+
+Please check the CPF Board website or contact HDB for details on CPF usage for housing loans.
+
+Warm regards,
+ServiceSG`,
+        citationCount: 0
+      },
+      // Another fees scenario (fails)
+      {
+        id: 'SG-2026-12245',
+        email: 'koh_wei_ming@example.com',
+        date: '18 Nov, 6:05 PM',
+        topic: 'fees',
+        preview: 'Are there any fees for changing CPF LIFE plan?',
+        enquiry: `Hello, I want to change my CPF LIFE plan from Basic to Standard. Are there any fees involved?<br><br><em style="color: #666;">(made up enquiry)</em>`,
+        lookupSuccess: false,
+        failureMessage: 'Policy lookup failed for "fees" topic. No matching source found for CPF LIFE plan change fees.'
+      },
+      // Medisave - sibling coverage
+      {
+        id: 'SG-2026-12267',
+        email: 'yeo_hui_ling@example.com',
+        date: '18 Nov, 6:22 PM',
+        topic: 'medisave',
+        preview: 'Can I use Medisave to pay for my brother\'s surgery?',
+        enquiry: `Hi, my brother needs surgery. Can I use my Medisave to help pay for it? He is a Singapore Citizen.<br><br><em style="color: #666;">(made up enquiry)</em>`,
+        lookupSuccess: true,
+        draftLabel: 'AI-drafted reply with citations',
+        draftLabelClass: 'warning',
+        draftClass: 'warning',
+        draftHtml: `
+          <p>Dear Resident,</p>
+          <p>Thank you for your enquiry about using Medisave for your brother's surgery.</p>
+          <p>You may use your Medisave to pay for approved medical expenses for your siblings, provided they are Singapore Citizens or Permanent Residents.<a href="#" class="citation" data-policy="medisave">CPF-004</a></p>
+          <div class="outdated-warning">This source (CPF-004) was last reviewed on 2026-07-10 and may be outdated. Please verify the current coverage with the CPF website.</div>
+          <p>Warm regards,<br>ServiceSG</p>
+        `,
+        draftPlain: `Dear Resident,
+
+Thank you for your enquiry about using Medisave for your brother's surgery.
+
+You may use your Medisave to pay for approved medical expenses for your siblings, provided they are Singapore Citizens or Permanent Residents. [CPF-004]
+
+Note: This source may be outdated. Please verify the current coverage with the CPF website.
+
+Warm regards,
+ServiceSG`,
+        citationCount: 1
+      },
+      // CPF LIFE - plan comparison
+      {
+        id: 'SG-2026-12289',
+        email: 'low_cheng_wei@example.com',
+        date: '18 Nov, 6:45 PM',
+        topic: 'cpf-life',
+        preview: 'What is the difference between CPF LIFE Basic and Standard?',
+        enquiry: `Good evening, what is the difference between CPF LIFE Basic and Standard plans? Which one gives higher monthly payout?<br><br><em style="color: #666;">(made up enquiry)</em>`,
+        lookupSuccess: true,
+        draftLabel: 'AI-drafted reply with citations',
+        draftHtml: `
+          <p>Dear Resident,</p>
+          <p>Thank you for your enquiry about CPF LIFE plans.</p>
+          <p>CPF LIFE provides monthly payouts from age 65 for life. The payout amount depends on the balance in your Retirement Account when payouts begin.<a href="#" class="citation" data-policy="cpf-life">CPF-003</a></p>
+          <p><span class="low-confidence">The difference between Basic and Standard plans relates to the monthly payout amount and bequest.</span><span class="low-confidence-tag">(verify)</span> I recommend using the CPF LIFE comparison tool on the CPF website for detailed differences.</p>
+          <p>Warm regards,<br>ServiceSG</p>
+        `,
+        draftPlain: `Dear Resident,
+
+Thank you for your enquiry about CPF LIFE plans.
+
+CPF LIFE provides monthly payouts from age 65 for life. The payout amount depends on the balance in your Retirement Account when payouts begin. [CPF-003]
+
+The difference between Basic and Standard plans relates to the monthly payout amount and bequest. (verify) I recommend using the CPF LIFE comparison tool on the CPF website for detailed differences.
+
+Warm regards,
+ServiceSG`,
+        citationCount: 1
+      },
+      // Inference across sources (bad example from context-skill.md)
+      {
+        id: 'SG-2026-12311',
+        email: 'ong_sze_min@example.com',
+        date: '18 Nov, 7:10 PM',
+        topic: 'other',
+        preview: 'If I withdraw CPF at 55, will my Medisave be affected?',
+        enquiry: `Hi, if I withdraw my CPF savings at 55, will my Medisave account be affected? I want to make sure I can still use Medisave for medical bills.<br><br><em style="color: #666;">(made up enquiry)</em>`,
+        lookupSuccess: true,
+        draftLabel: 'No single source available',
+        draftLabelClass: 'warning',
+        draftClass: 'warning',
+        draftHtml: `
+          <p>Dear Resident,</p>
+          <p>Thank you for your enquiry.</p>
+          <p><strong>I don't have a single source that answers this.</strong> Your question involves both CPF withdrawal rules [CPF-002] and Medisave rules [CPF-004], but I cannot infer how they interact.</p>
+          <p>Please check with CPF Board directly for how a withdrawal at 55 affects your Medisave account.</p>
+          <p>Warm regards,<br>ServiceSG</p>
+        `,
+        draftPlain: `Dear Resident,
+
+Thank you for your enquiry.
+
+I don't have a single source that answers this. Your question involves both CPF withdrawal rules [CPF-002] and Medisave rules [CPF-004], but I cannot infer how they interact.
+
+Please check with CPF Board directly for how a withdrawal at 55 affects your Medisave account.
+
+Warm regards,
+ServiceSG`,
+        citationCount: 0
+      },
+      // Retirement - BRS vs FRS
+      {
+        id: 'SG-2026-12333',
+        email: 'chua_boon_kiat@example.com',
+        date: '18 Nov, 7:35 PM',
+        topic: 'retirement',
+        preview: 'What is the Basic Retirement Sum for 2026?',
+        enquiry: `Hi, I heard there is a Basic Retirement Sum and Full Retirement Sum. What is the Basic Retirement Sum for 2026?<br><br><em style="color: #666;">(made up enquiry)</em>`,
+        lookupSuccess: true,
+        draftLabel: 'AI-drafted reply with citations',
+        draftHtml: `
+          <p>Dear Resident,</p>
+          <p>Thank you for your enquiry about the Basic Retirement Sum.</p>
+          <p>The Full Retirement Sum (FRS) for members turning 55 in 2026 is $205,800.<a href="#" class="citation" data-policy="cpf-frs">CPF-001</a> (made up)</p>
+          <p><span class="low-confidence">The Basic Retirement Sum (BRS) is typically half of the FRS.</span><span class="low-confidence-tag">(verify)</span> Please verify the exact BRS amount on the CPF website.</p>
+          <p>Warm regards,<br>ServiceSG</p>
+        `,
+        draftPlain: `Dear Resident,
+
+Thank you for your enquiry about the Basic Retirement Sum.
+
+The Full Retirement Sum (FRS) for members turning 55 in 2026 is $205,800. [CPF-001] (made up)
+
+The Basic Retirement Sum (BRS) is typically half of the FRS. (verify) Please verify the exact BRS amount on the CPF website.
+
+Warm regards,
+ServiceSG`,
+        citationCount: 1
+      },
+      // Long enquiry - edge case
+      {
+        id: 'SG-2026-12355',
+        email: 'soh_pei_wen@example.com',
+        date: '18 Nov, 8:00 PM',
+        topic: 'withdrawal',
+        preview: 'Multiple questions about CPF withdrawal at 55...',
+        enquiry: `Dear ServiceSG,<br><br>I have several questions about CPF withdrawal at 55 and I hope you can help me understand better.<br><br>1. First, how much can I withdraw when I turn 55?<br>2. What documents do I need to bring if I go to the service centre?<br>3. How long does the withdrawal process take?<br>4. Can I withdraw in instalments or must it be one lump sum?<br>5. Will this affect my CPF LIFE payouts later?<br><br>I am planning ahead for my retirement next year and want to make sure I understand all the options available to me. Thank you for your patience in answering all these questions.<br><br>Best regards,<br>Soh Pei Wen<br><br><em style="color: #666;">(made up enquiry)</em>`,
+        lookupSuccess: true,
+        draftLabel: 'AI-drafted reply with citations',
+        draftHtml: `
+          <p>Dear Resident,</p>
+          <p>Thank you for your detailed enquiry about CPF withdrawal at 55.</p>
+          <p><strong>1. Withdrawal amount:</strong> When you turn 55, you may withdraw CPF savings above the Full Retirement Sum (FRS), which is $205,800 for 2026.<a href="#" class="citation" data-policy="cpf-frs">CPF-001</a> (made up)</p>
+          <p><strong>2. Documents needed:</strong> Bring your NRIC when visiting a CPF Service Centre.<a href="#" class="citation" data-policy="cpf-withdrawal">CPF-002</a></p>
+          <p><strong>3. Processing time:</strong> Online applications are typically processed within 5 working days.</p>
+          <p><strong>4. Withdrawal method:</strong> <span class="low-confidence">I don't have specific information on instalment vs lump sum options.</span><span class="low-confidence-tag">(verify)</span> Please check the CPF website for details.</p>
+          <p><strong>5. Impact on CPF LIFE:</strong> <span class="low-confidence">Your CPF LIFE payouts depend on your Retirement Account balance when payouts begin.</span><span class="low-confidence-tag">(verify)</span><a href="#" class="citation" data-policy="cpf-life">CPF-003</a></p>
+          <p>Warm regards,<br>ServiceSG</p>
+        `,
+        draftPlain: `Dear Resident,
+
+Thank you for your detailed enquiry about CPF withdrawal at 55.
+
+1. Withdrawal amount: When you turn 55, you may withdraw CPF savings above the Full Retirement Sum (FRS), which is $205,800 for 2026. [CPF-001] (made up)
+
+2. Documents needed: Bring your NRIC when visiting a CPF Service Centre. [CPF-002]
+
+3. Processing time: Online applications are typically processed within 5 working days.
+
+4. Withdrawal method: I don't have specific information on instalment vs lump sum options. (verify) Please check the CPF website for details.
+
+5. Impact on CPF LIFE: Your CPF LIFE payouts depend on your Retirement Account balance when payouts begin. (verify) [CPF-003]
+
+Warm regards,
+ServiceSG`,
+        citationCount: 3
+      },
+      // Medisave limit question (test question 5 from context-skill.md)
+      {
+        id: 'SG-2026-12377',
+        email: 'teo_kai_xin@example.com',
+        date: '18 Nov, 8:25 PM',
+        topic: 'medisave',
+        preview: 'Is the Medisave withdrawal limit still $300 per day?',
+        enquiry: `Hi, I read online that the Medisave withdrawal limit is $300 per day. Is this still correct?<br><br><em style="color: #666;">(made up enquiry)</em>`,
+        lookupSuccess: true,
+        draftLabel: 'AI-drafted reply with citations',
+        draftLabelClass: 'warning',
+        draftClass: 'warning',
+        draftHtml: `
+          <p>Dear Resident,</p>
+          <p>Thank you for your enquiry about Medisave withdrawal limits.</p>
+          <p>You may use Medisave for approved medical expenses. The claim limit depends on the type of treatment.<a href="#" class="citation" data-policy="medisave">CPF-004</a></p>
+          <div class="outdated-warning"><strong>Important:</strong> This source (CPF-004) was last reviewed on 2026-07-10 and may be outdated. The $300 per day figure you mentioned should be verified on the current CPF website before relying on it.</div>
+          <p>Warm regards,<br>ServiceSG</p>
+        `,
+        draftPlain: `Dear Resident,
+
+Thank you for your enquiry about Medisave withdrawal limits.
+
+You may use Medisave for approved medical expenses. The claim limit depends on the type of treatment. [CPF-004]
+
+Important: This source (CPF-004) was last reviewed on 2026-07-10 and may be outdated. The $300 per day figure you mentioned should be verified on the current CPF website before relying on it.
+
+Warm regards,
+ServiceSG`,
+        citationCount: 1
       }
     ];
 
