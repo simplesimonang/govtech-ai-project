@@ -114,10 +114,10 @@ day2-validate/prototype/
 └── sample-policy-sources.md  # Documentation only, not used by code
 ```
 
-**Data model (from JS, lines 610–1057):**
+**Data model (from JS):**
 
 ```js
-// Scenario shape (15 instances)
+// Scenario shape (15 instances, lines 610–1057)
 {
   id: 'SG-2026-11847',
   email: 'tan_ah_kow@example.com',
@@ -134,7 +134,7 @@ day2-validate/prototype/
   citationCount: 3
 }
 
-// Policy shape (4 instances)
+// Policy shape (4 instances, lines 1060–1081)
 {
   'cpf-frs': {
     title: 'CPF-001: CPF Retirement Sum (made up)',
@@ -143,11 +143,20 @@ day2-validate/prototype/
   }
 }
 
-// Topics (7 total)
-['all', 'retirement', 'withdrawal', 'cpf-life', 'medisave', 'housing', 'fees', 'other']
+// Topics (8 entries including 'all', lines 598–607)
+[
+  { id: 'all', name: 'All' },
+  { id: 'retirement', name: 'Retirement' },
+  { id: 'withdrawal', name: 'Withdrawal' },
+  { id: 'cpf-life', name: 'CPF LIFE' },
+  { id: 'medisave', name: 'Medisave' },
+  { id: 'housing', name: 'Housing' },
+  { id: 'fees', name: 'Fees' },
+  { id: 'other', name: 'Other' }
+]
 ```
 
-**State variables (lines 1083–1091):**
+**State variables (lines 1084–1091):**
 ```js
 let currentFilter = 'all';
 let selectedEnquiry = null;
