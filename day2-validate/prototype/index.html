@@ -30,6 +30,15 @@
       font-size: 13px;
       color: #856404;
     }
+    .scenario-badge {
+      display: inline-block;
+      background: #e9ecef;
+      color: #495057;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 11px;
+      margin-left: 10px;
+    }
     .header {
       background: #1a1a5e;
       color: white;
@@ -87,12 +96,20 @@
       width: 14px;
       height: 14px;
     }
+    .draft-label.no-info {
+      background: #fff3cd;
+      color: #856404;
+    }
     .draft-reply {
       border: 2px dashed #b3d7ff;
       border-radius: 6px;
       padding: 15px;
       background: #fafcff;
       position: relative;
+    }
+    .draft-reply.no-info {
+      border-color: #ffc107;
+      background: #fffdf5;
     }
     .draft-reply p {
       margin-bottom: 12px;
@@ -113,6 +130,15 @@
     }
     .citation:hover {
       background: #ffe69c;
+    }
+    .outdated-warning {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      border-radius: 4px;
+      padding: 10px;
+      margin-top: 12px;
+      font-size: 13px;
+      color: #856404;
     }
     .low-confidence {
       border-bottom: 2px dotted #dc3545;
@@ -276,20 +302,19 @@
   <div class="container">
     <div class="banner">
       This is a prototype with synthetic data for testing purposes. All names, policies, and details are made up.
+      <span class="scenario-badge" id="scenario-badge">Scenario 1 of 5</span>
     </div>
 
     <div class="header">
-      <h1>Enquiry #SG-2026-11847 (made up)</h1>
-      <div class="meta">From: resident_email@example.com (made up) | Received: 18 Nov 2026, 9:32 AM</div>
+      <h1 id="enquiry-id">Enquiry #SG-2026-11847 (made up)</h1>
+      <div class="meta" id="enquiry-meta">From: resident_email@example.com (made up) | Received: 18 Nov 2026, 9:32 AM</div>
     </div>
 
     <div class="main">
       <div class="section">
         <div class="section-title">Resident's Enquiry</div>
-        <div class="enquiry-text">
-          Hi, I recently turned 55 and I heard I can withdraw some of my CPF savings. How much can I take out and what do I need to do? Also, will this affect my retirement payouts later? Thanks.
-          <br><br>
-          <em style="color: #666;">(made up enquiry)</em>
+        <div class="enquiry-text" id="enquiry-text">
+          Loading...
         </div>
       </div>
 
@@ -305,52 +330,27 @@
         </div>
 
         <div id="draft-section" style="display: none;">
-          <div class="draft-label">
+          <div class="draft-label" id="draft-label">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-            AI-drafted reply with citations
+            <span id="draft-label-text">AI-drafted reply with citations</span>
           </div>
 
           <div class="draft-reply" id="draft-display">
-          <p>Dear Resident,</p>
-
-          <p>Thank you for reaching out about your CPF withdrawal options at age 55.</p>
-
-          <p>When you turn 55, you may withdraw your CPF savings above the Full Retirement Sum (FRS), which is currently $205,800 for members turning 55 in 2026.<a href="#" class="citation" data-policy="cpf-frs">CPF: Retirement Sum</a> (made up figure)</p>
-
-          <p>To make a withdrawal, you can submit a request through the CPF website or visit any CPF Service Centre with your NRIC.<a href="#" class="citation" data-policy="cpf-withdrawal">CPF: Withdrawal Process</a></p>
-
-          <p><span class="low-confidence">Your monthly retirement payouts under CPF LIFE will be based on the amount remaining in your Retirement Account after any withdrawals.</span><span class="low-confidence-tag">(verify)</span><a href="#" class="citation" data-policy="cpf-life">CPF: CPF LIFE</a></p>
-
-          <p>If you need further assistance, please let us know.</p>
-
-          <p>Warm regards,<br>ServiceSG</p>
-        </div>
-
-        <div class="edit-area">
-          <textarea id="edit-textarea">Dear Resident,
-
-Thank you for reaching out about your CPF withdrawal options at age 55.
-
-When you turn 55, you may withdraw your CPF savings above the Full Retirement Sum (FRS), which is currently $205,800 for members turning 55 in 2026. (made up figure)
-
-To make a withdrawal, you can submit a request through the CPF website or visit any CPF Service Centre with your NRIC.
-
-Your monthly retirement payouts under CPF LIFE will be based on the amount remaining in your Retirement Account after any withdrawals.
-
-If you need further assistance, please let us know.
-
-Warm regards,
-ServiceSG</textarea>
-        </div>
-
-        <div class="policy-panel" id="policy-panel">
-          <div class="policy-panel-header">
-            <span class="policy-panel-title" id="policy-title">Policy Source</span>
-            <button class="policy-panel-close" onclick="closePolicy()">&times;</button>
+            Loading...
           </div>
-          <div class="policy-highlight" id="policy-content"></div>
-          <p style="font-size: 11px; color: #666; margin-top: 10px;">(made up policy text for prototype)</p>
-        </div>
+
+          <div class="edit-area">
+            <textarea id="edit-textarea"></textarea>
+          </div>
+
+          <div class="policy-panel" id="policy-panel">
+            <div class="policy-panel-header">
+              <span class="policy-panel-title" id="policy-title">Policy Source</span>
+              <button class="policy-panel-close" onclick="closePolicy()">&times;</button>
+            </div>
+            <div class="policy-highlight" id="policy-content"></div>
+            <p style="font-size: 11px; color: #666; margin-top: 10px;">(made up policy text for prototype)</p>
+          </div>
         </div>
       </div>
 
@@ -371,6 +371,7 @@ ServiceSG</textarea>
       <h2 id="modal-title">Reply Sent</h2>
       <p id="modal-message">Thank you for testing this prototype.</p>
       <div class="result-stats">
+        <div><span>Scenario:</span><strong id="stat-scenario">-</strong></div>
         <div><span>Action taken:</span><strong id="stat-action">-</strong></div>
         <div><span>Time spent:</span><strong id="stat-time">-</strong></div>
         <div><span>Citations viewed:</span><strong id="stat-citations">-</strong></div>
@@ -381,12 +382,208 @@ ServiceSG</textarea>
   </div>
 
   <script>
+    // Scenarios based on context-skill.md test questions (all made up)
+    const scenarios = [
+      {
+        id: 1,
+        type: 'standard',
+        enquiryId: 'SG-2026-11847',
+        email: 'tan_ah_kow@example.com',
+        date: '18 Nov 2026, 9:32 AM',
+        enquiry: `Hi, I recently turned 55 and I heard I can withdraw some of my CPF savings. How much can I take out and what do I need to do? Also, will this affect my retirement payouts later? Thanks.<br><br><em style="color: #666;">(made up enquiry)</em>`,
+        draftLabel: 'AI-drafted reply with citations',
+        draftHtml: `
+          <p>Dear Resident,</p>
+          <p>Thank you for reaching out about your CPF withdrawal options at age 55.</p>
+          <p>When you turn 55, you may withdraw your CPF savings above the Full Retirement Sum (FRS), which is currently $205,800 for members turning 55 in 2026.<a href="#" class="citation" data-policy="cpf-frs">CPF-001</a> (made up figure)</p>
+          <p>To make a withdrawal, you can submit a request through the CPF website or visit any CPF Service Centre with your NRIC.<a href="#" class="citation" data-policy="cpf-withdrawal">CPF-002</a></p>
+          <p><span class="low-confidence">Your monthly retirement payouts under CPF LIFE will be based on the amount remaining in your Retirement Account after any withdrawals.</span><span class="low-confidence-tag">(verify)</span><a href="#" class="citation" data-policy="cpf-life">CPF-003</a></p>
+          <p>If you need further assistance, please let us know.</p>
+          <p>Warm regards,<br>ServiceSG</p>
+        `,
+        draftPlain: `Dear Resident,
+
+Thank you for reaching out about your CPF withdrawal options at age 55.
+
+When you turn 55, you may withdraw your CPF savings above the Full Retirement Sum (FRS), which is currently $205,800 for members turning 55 in 2026. [CPF-001] (made up figure)
+
+To make a withdrawal, you can submit a request through the CPF website or visit any CPF Service Centre with your NRIC. [CPF-002]
+
+Your monthly retirement payouts under CPF LIFE will be based on the amount remaining in your Retirement Account after any withdrawals. [CPF-003]
+
+If you need further assistance, please let us know.
+
+Warm regards,
+ServiceSG`,
+        citationCount: 3
+      },
+      {
+        id: 2,
+        type: 'outdated-source',
+        enquiryId: 'SG-2026-11923',
+        email: 'lim_mei_ling@example.com',
+        date: '18 Nov 2026, 10:15 AM',
+        enquiry: `Hello, can I use my Medisave to pay for my elderly mother's hospital bill? She is a Singapore Citizen. What is the withdrawal limit?<br><br><em style="color: #666;">(made up enquiry)</em>`,
+        draftLabel: 'AI-drafted reply with citations',
+        draftHtml: `
+          <p>Dear Resident,</p>
+          <p>Thank you for your enquiry about using Medisave for your mother's hospital bill.</p>
+          <p>You may use your Medisave to pay for your parent's hospital bill if they are a Singapore Citizen or Permanent Resident. The claim limit depends on the type of treatment.<a href="#" class="citation" data-policy="medisave">CPF-004</a></p>
+          <div class="outdated-warning">⚠️ <strong>Note:</strong> This source (CPF-004) was last reviewed on 2026-07-10 and may be outdated. Please verify the current limits with the CPF website before sending.</div>
+          <p>If you need further assistance, please let us know.</p>
+          <p>Warm regards,<br>ServiceSG</p>
+        `,
+        draftPlain: `Dear Resident,
+
+Thank you for your enquiry about using Medisave for your mother's hospital bill.
+
+You may use your Medisave to pay for your parent's hospital bill if they are a Singapore Citizen or Permanent Resident. The claim limit depends on the type of treatment. [CPF-004]
+
+⚠️ Note: This source (CPF-004) was last reviewed on 2026-07-10 and may be outdated. Please verify the current limits with the CPF website before sending.
+
+If you need further assistance, please let us know.
+
+Warm regards,
+ServiceSG`,
+        citationCount: 1
+      },
+      {
+        id: 3,
+        type: 'no-source',
+        enquiryId: 'SG-2026-12001',
+        email: 'wong_david@example.com',
+        date: '18 Nov 2026, 11:42 AM',
+        enquiry: `Hi, I want to buy a new car. Can I withdraw my CPF money to pay for it?<br><br><em style="color: #666;">(made up enquiry)</em>`,
+        draftLabel: 'No matching policy source',
+        draftLabelClass: 'no-info',
+        draftClass: 'no-info',
+        draftHtml: `
+          <p>Dear Resident,</p>
+          <p>Thank you for your enquiry.</p>
+          <p><strong>I don't have information on this topic.</strong> The policy sources available to me do not cover CPF withdrawals for vehicle purchases.</p>
+          <p>I recommend checking directly with CPF Board at <em>cpf.gov.sg</em> or calling the CPF hotline for accurate information on this matter.</p>
+          <p>Apologies for the inconvenience.</p>
+          <p>Warm regards,<br>ServiceSG</p>
+        `,
+        draftPlain: `Dear Resident,
+
+Thank you for your enquiry.
+
+I don't have information on this topic. The policy sources available to me do not cover CPF withdrawals for vehicle purchases.
+
+I recommend checking directly with CPF Board at cpf.gov.sg or calling the CPF hotline for accurate information on this matter.
+
+Apologies for the inconvenience.
+
+Warm regards,
+ServiceSG`,
+        citationCount: 0
+      },
+      {
+        id: 4,
+        type: 'standard',
+        enquiryId: 'SG-2026-12087',
+        email: 'chen_shu_hui@example.com',
+        date: '18 Nov 2026, 2:05 PM',
+        enquiry: `Good afternoon, I will be turning 65 next year. What will my monthly CPF LIFE payout be? How is it calculated?<br><br><em style="color: #666;">(made up enquiry)</em>`,
+        draftLabel: 'AI-drafted reply with citations',
+        draftHtml: `
+          <p>Dear Resident,</p>
+          <p>Thank you for your enquiry about CPF LIFE payouts.</p>
+          <p>CPF LIFE provides monthly payouts from age 65 for life. The payout amount depends on the balance in your Retirement Account when payouts begin.<a href="#" class="citation" data-policy="cpf-life">CPF-003</a></p>
+          <p>The exact monthly amount varies based on the CPF LIFE plan you choose and your Retirement Account balance at payout start. You can use the CPF LIFE estimator on the CPF website to get a personalised estimate.</p>
+          <p>If you need further assistance, please let us know.</p>
+          <p>Warm regards,<br>ServiceSG</p>
+        `,
+        draftPlain: `Dear Resident,
+
+Thank you for your enquiry about CPF LIFE payouts.
+
+CPF LIFE provides monthly payouts from age 65 for life. The payout amount depends on the balance in your Retirement Account when payouts begin. [CPF-003]
+
+The exact monthly amount varies based on the CPF LIFE plan you choose and your Retirement Account balance at payout start. You can use the CPF LIFE estimator on the CPF website to get a personalised estimate.
+
+If you need further assistance, please let us know.
+
+Warm regards,
+ServiceSG`,
+        citationCount: 1
+      },
+      {
+        id: 5,
+        type: 'standard',
+        enquiryId: 'SG-2026-12134',
+        email: 'raj_kumar@example.com',
+        date: '18 Nov 2026, 3:28 PM',
+        enquiry: `Hi, what is the Full Retirement Sum for 2026? I'm trying to plan my CPF withdrawal.<br><br><em style="color: #666;">(made up enquiry)</em>`,
+        draftLabel: 'AI-drafted reply with citations',
+        draftHtml: `
+          <p>Dear Resident,</p>
+          <p>Thank you for your enquiry about the Full Retirement Sum.</p>
+          <p>The Full Retirement Sum (FRS) for members turning 55 in 2026 is <strong>$205,800</strong>.<a href="#" class="citation" data-policy="cpf-frs">CPF-001</a> (made up figure)</p>
+          <p>Members who wish to withdraw their CPF savings at 55 may withdraw amounts above the FRS in their Combined Balances.</p>
+          <p>If you need further assistance, please let us know.</p>
+          <p>Warm regards,<br>ServiceSG</p>
+        `,
+        draftPlain: `Dear Resident,
+
+Thank you for your enquiry about the Full Retirement Sum.
+
+The Full Retirement Sum (FRS) for members turning 55 in 2026 is $205,800. [CPF-001] (made up figure)
+
+Members who wish to withdraw their CPF savings at 55 may withdraw amounts above the FRS in their Combined Balances.
+
+If you need further assistance, please let us know.
+
+Warm regards,
+ServiceSG`,
+        citationCount: 1
+      }
+    ];
+
+    // Policy data (made up) - aligned with context-skill.md sources
+    const policies = {
+      'cpf-frs': {
+        title: 'CPF-001: CPF Retirement Sum (made up)',
+        content: 'The Full Retirement Sum (FRS) for members turning 55 in 2026 is $205,800. Members who wish to withdraw their CPF savings at 55 may withdraw amounts above the FRS in their Combined Balances.',
+        lastReviewed: '2026-10-01'
+      },
+      'cpf-withdrawal': {
+        title: 'CPF-002: CPF Withdrawal at 55 (made up)',
+        content: 'Members can apply for CPF withdrawal online via the CPF website using Singpass, or in person at any CPF Service Centre. Bring your NRIC for verification.',
+        lastReviewed: '2026-09-15'
+      },
+      'cpf-life': {
+        title: 'CPF-003: CPF LIFE Payouts (made up)',
+        content: 'CPF LIFE provides monthly payouts from age 65 for life. The payout amount depends on the balance in your Retirement Account when payouts begin.',
+        lastReviewed: '2026-08-20'
+      },
+      'medisave': {
+        title: 'CPF-004: Medisave Withdrawal (made up)',
+        content: 'You may use your Medisave to pay for approved medical expenses for yourself, your spouse, children, parents, grandparents, and siblings. Claim limits depend on treatment type.',
+        lastReviewed: '2026-07-10'
+      }
+    };
+
+    // Select random scenario
+    const currentScenario = scenarios[Math.floor(Math.random() * scenarios.length)];
+
     // Prototype tracking
     let startTime = null;
     let citationsViewed = new Set();
     let isEditing = false;
-    let originalDraft = document.getElementById('edit-textarea').value;
+    let originalDraft = '';
     let draftGenerated = false;
+
+    // Initialize page with scenario
+    function initScenario() {
+      document.getElementById('scenario-badge').textContent = `Scenario ${currentScenario.id} of ${scenarios.length}`;
+      document.getElementById('enquiry-id').textContent = `Enquiry #${currentScenario.enquiryId} (made up)`;
+      document.getElementById('enquiry-meta').textContent = `From: ${currentScenario.email} (made up) | Received: ${currentScenario.date}`;
+      document.getElementById('enquiry-text').innerHTML = currentScenario.enquiry;
+    }
+
+    initScenario();
 
     // Timer (starts when draft is generated)
     setInterval(() => {
@@ -405,11 +602,25 @@ ServiceSG</textarea>
       document.getElementById('draft-section').style.display = 'block';
       document.getElementById('actions-bar').style.display = 'flex';
 
+      // Set draft content based on scenario
+      document.getElementById('draft-label-text').textContent = currentScenario.draftLabel;
+      document.getElementById('draft-display').innerHTML = currentScenario.draftHtml;
+      document.getElementById('edit-textarea').value = currentScenario.draftPlain;
+      originalDraft = currentScenario.draftPlain;
+
+      // Apply special styling for no-info scenarios
+      if (currentScenario.draftLabelClass) {
+        document.getElementById('draft-label').classList.add(currentScenario.draftLabelClass);
+      }
+      if (currentScenario.draftClass) {
+        document.getElementById('draft-display').classList.add(currentScenario.draftClass);
+      }
+
       // Start timer now
       startTime = Date.now();
       draftGenerated = true;
 
-      // Re-attach citation handlers
+      // Attach citation handlers
       document.querySelectorAll('.citation').forEach(el => {
         el.addEventListener('click', (e) => {
           e.preventDefault();
@@ -420,29 +631,13 @@ ServiceSG</textarea>
       });
     }
 
-    // Policy data (made up)
-    const policies = {
-      'cpf-frs': {
-        title: 'CPF: Full Retirement Sum (made up)',
-        content: 'The Full Retirement Sum (FRS) for members turning 55 in 2026 is $205,800. Members who wish to withdraw their CPF savings at 55 may withdraw amounts above the FRS in their Combined Balances.'
-      },
-      'cpf-withdrawal': {
-        title: 'CPF: Withdrawal Process (made up)',
-        content: 'Members can apply for CPF withdrawal online via the CPF website using Singpass, or in person at any CPF Service Centre. Bring your NRIC for verification.'
-      },
-      'cpf-life': {
-        title: 'CPF: CPF LIFE Payouts (made up)',
-        content: 'CPF LIFE provides monthly payouts from age 65 for life. The payout amount depends on the balance in your Retirement Account when payouts begin.'
-      }
-    };
-
-    // Citation click handler (attached after draft is generated)
-
     function showPolicy(policyId) {
       const policy = policies[policyId];
-      document.getElementById('policy-title').textContent = policy.title;
-      document.getElementById('policy-content').textContent = policy.content;
-      document.getElementById('policy-panel').classList.add('visible');
+      if (policy) {
+        document.getElementById('policy-title').textContent = policy.title;
+        document.getElementById('policy-content').innerHTML = policy.content + `<br><br><em style="font-size: 12px;">Last reviewed: ${policy.lastReviewed}</em>`;
+        document.getElementById('policy-panel').classList.add('visible');
+      }
     }
 
     function closePolicy() {
@@ -482,9 +677,10 @@ ServiceSG</textarea>
       const mins = Math.floor(timeSpent / 60);
       const secs = timeSpent % 60;
 
+      document.getElementById('stat-scenario').textContent = `${currentScenario.id} (${currentScenario.type})`;
       document.getElementById('stat-action').textContent = action;
       document.getElementById('stat-time').textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
-      document.getElementById('stat-citations').textContent = citationsViewed.size + ' of 3';
+      document.getElementById('stat-citations').textContent = citationsViewed.size + ' of ' + currentScenario.citationCount;
 
       if (action === 'Rewrote from scratch') {
         document.getElementById('modal-title').textContent = 'Draft Cleared';
