@@ -294,14 +294,23 @@
       </div>
 
       <div class="section" id="reply-section">
-        <div class="section-title">Drafted Reply</div>
+        <div class="section-title">Reply</div>
 
-        <div class="draft-label">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-          AI-drafted reply with citations
+        <div id="generate-section">
+          <p style="color: #666; margin-bottom: 15px;">Click the button below to generate an AI-drafted reply based on the enquiry.</p>
+          <button class="btn btn-primary" id="generate-btn" onclick="generateDraft()">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width: 16px; height: 16px; margin-right: 6px; vertical-align: middle;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            Generate AI Draft
+          </button>
         </div>
 
-        <div class="draft-reply" id="draft-display">
+        <div id="draft-section" style="display: none;">
+          <div class="draft-label">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            AI-drafted reply with citations
+          </div>
+
+          <div class="draft-reply" id="draft-display">
           <p>Dear Resident,</p>
 
           <p>Thank you for reaching out about your CPF withdrawal options at age 55.</p>
@@ -342,9 +351,10 @@ ServiceSG</textarea>
           <div class="policy-highlight" id="policy-content"></div>
           <p style="font-size: 11px; color: #666; margin-top: 10px;">(made up policy text for prototype)</p>
         </div>
+        </div>
       </div>
 
-      <div class="actions">
+      <div class="actions" id="actions-bar" style="display: none;">
         <button class="btn btn-primary" id="send-btn" onclick="sendReply()">Send Reply</button>
         <button class="btn btn-secondary" id="edit-btn" onclick="toggleEdit()">Edit Draft</button>
         <button class="btn btn-text" onclick="rewriteFromScratch()">Rewrite from scratch</button>
@@ -372,18 +382,43 @@ ServiceSG</textarea>
 
   <script>
     // Prototype tracking
-    let startTime = Date.now();
+    let startTime = null;
     let citationsViewed = new Set();
     let isEditing = false;
     let originalDraft = document.getElementById('edit-textarea').value;
+    let draftGenerated = false;
 
-    // Timer
+    // Timer (starts when draft is generated)
     setInterval(() => {
-      const elapsed = Math.floor((Date.now() - startTime) / 1000);
-      const mins = Math.floor(elapsed / 60);
-      const secs = elapsed % 60;
-      document.getElementById('timer').textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+      if (startTime) {
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        const mins = Math.floor(elapsed / 60);
+        const secs = elapsed % 60;
+        document.getElementById('timer').textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+      }
     }, 1000);
+
+    // Generate draft function
+    function generateDraft() {
+      // Hide generate button, show draft
+      document.getElementById('generate-section').style.display = 'none';
+      document.getElementById('draft-section').style.display = 'block';
+      document.getElementById('actions-bar').style.display = 'flex';
+
+      // Start timer now
+      startTime = Date.now();
+      draftGenerated = true;
+
+      // Re-attach citation handlers
+      document.querySelectorAll('.citation').forEach(el => {
+        el.addEventListener('click', (e) => {
+          e.preventDefault();
+          const policyId = el.dataset.policy;
+          citationsViewed.add(policyId);
+          showPolicy(policyId);
+        });
+      });
+    }
 
     // Policy data (made up)
     const policies = {
@@ -401,15 +436,7 @@ ServiceSG</textarea>
       }
     };
 
-    // Citation click handler
-    document.querySelectorAll('.citation').forEach(el => {
-      el.addEventListener('click', (e) => {
-        e.preventDefault();
-        const policyId = el.dataset.policy;
-        citationsViewed.add(policyId);
-        showPolicy(policyId);
-      });
-    });
+    // Citation click handler (attached after draft is generated)
 
     function showPolicy(policyId) {
       const policy = policies[policyId];
