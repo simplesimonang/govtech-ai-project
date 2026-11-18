@@ -25,6 +25,17 @@ function init() {
   renderTopicFilter();
   renderInbox();
 
+  // Event delegation for citation clicks (fixes stacking listener bug)
+  document.getElementById('draft-display').addEventListener('click', (e) => {
+    const citation = e.target.closest('.citation');
+    if (citation) {
+      e.preventDefault();
+      const policyId = citation.dataset.policy;
+      citationsViewed.add(policyId);
+      showPolicy(policyId);
+    }
+  });
+
   // Check URL param for pre-selected enquiry
   const urlParams = new URLSearchParams(window.location.search);
   const enquiryParam = urlParams.get('enquiry');
@@ -144,16 +155,7 @@ function showDraft() {
   if (selectedEnquiry.draftClass) {
     displayEl.classList.add(selectedEnquiry.draftClass);
   }
-
-  // Attach citation handlers
-  document.querySelectorAll('.citation').forEach(el => {
-    el.addEventListener('click', (e) => {
-      e.preventDefault();
-      const policyId = el.dataset.policy;
-      citationsViewed.add(policyId);
-      showPolicy(policyId);
-    });
-  });
+  // Citation clicks handled by event delegation in init()
 }
 
 function showLookupFailed() {
