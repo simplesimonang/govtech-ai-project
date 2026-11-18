@@ -29,4 +29,4 @@
 - How long does it take?
 
 **Pass:** 7 in 10 drafts sent after a light edit. (made up)
-**Fail:** Officers rewrite most drafts from scratch, or get stuck for more than 30 seconds.
+**Fail:** Officers rewrite most drafts from scratch, or get stuck for more than 3 minutes. (Starting threshold — adjust based on query complexity during testing.)
