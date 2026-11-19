@@ -1,6 +1,30 @@
 // Data loaded from JSON files
 let TOPICS, scenarios, policies;
 
+// Logger - persists to localStorage
+const agentLog = {
+  getAll() {
+    return JSON.parse(localStorage.getItem('agentLog') || '[]');
+  },
+  add(event, data) {
+    const logs = this.getAll();
+    logs.push({
+      timestamp: new Date().toISOString(),
+      event,
+      ...data
+    });
+    localStorage.setItem('agentLog', JSON.stringify(logs));
+  },
+  clear() {
+    localStorage.removeItem('agentLog');
+  },
+  export() {
+    return this.getAll().map(log =>
+      `${log.event.padEnd(18)} | ${log.enquiryId || '-'} | ${log.topic || '-'} | ${log.detail || '-'} | ${log.timestamp}`
+    ).join('\n');
+  }
+};
+
 // State
 let currentFilter = 'all';
 let selectedEnquiry = null;
@@ -31,6 +55,12 @@ function init() {
     if (citation) {
       e.preventDefault();
       const policyId = citation.dataset.policy;
+      if (!citationsViewed.has(policyId)) {
+        agentLog.add('Citation viewed', {
+          enquiryId: selectedEnquiry?.id || '-',
+          detail: policyId
+        });
+      }
       citationsViewed.add(policyId);
       showPolicy(policyId);
     }
@@ -123,12 +153,23 @@ function selectEnquiry(scenario) {
 function generateDraft() {
   startTime = Date.now();
   document.getElementById('generate-section').style.display = 'none';
+  const topicName = TOPICS.find(t => t.id === selectedEnquiry.topic)?.name || 'Other';
 
   if (!selectedEnquiry.lookupSuccess) {
+    agentLog.add('Lookup failed', {
+      enquiryId: selectedEnquiry.id,
+      topic: topicName,
+      detail: 'Routed to human'
+    });
     showLookupFailed();
     return;
   }
 
+  agentLog.add('Draft generated', {
+    enquiryId: selectedEnquiry.id,
+    topic: topicName,
+    detail: `citations: ${selectedEnquiry.citationCount || 0}`
+  });
   showDraft();
 }
 
@@ -274,6 +315,13 @@ function showResult(action, timeSpent) {
   const secs = timeSpent % 60;
   const topicName = TOPICS.find(t => t.id === selectedEnquiry.topic)?.name || 'Other';
 
+  // Log the action
+  agentLog.add('Action taken', {
+    enquiryId: selectedEnquiry.id,
+    topic: topicName,
+    detail: `${action} | ${mins}:${secs.toString().padStart(2, '0')} | citations: ${citationsViewed.size}/${selectedEnquiry.citationCount || 0}`
+  });
+
   document.getElementById('stat-scenario').textContent = `#${selectedEnquiry.id}`;
   document.getElementById('stat-topic').textContent = topicName;
   document.getElementById('stat-action').textContent = action;
@@ -313,6 +361,29 @@ setInterval(() => {
     document.getElementById('timer').textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
   }
 }, 1000);
+
+// Log modal functions
+function showLogs() {
+  const logs = agentLog.export();
+  document.getElementById('log-content').textContent = logs || '(no logs yet)';
+  document.getElementById('log-modal').classList.add('visible');
+}
+
+function closeLogModal() {
+  document.getElementById('log-modal').classList.remove('visible');
+}
+
+function clearLogs() {
+  agentLog.clear();
+  document.getElementById('log-content').textContent = '(logs cleared)';
+}
+
+function copyLogs() {
+  const logs = agentLog.export();
+  navigator.clipboard.writeText(logs).then(() => {
+    alert('Logs copied to clipboard');
+  });
+}
 
 // Start loading
 loadData();
