@@ -103,4 +103,80 @@ These actions are never automated, regardless of agent capability or confidence.
 
 ---
 
+## Business owner questions (answered)
+
+*A business owner asked to fund this would want to know:*
+
+### 1. What does it cost?
+
+| Item | Cost | Notes |
+|------|------|-------|
+| LLM API calls | ~$0.02/enquiry (made up) | 50–100 enquiries/day = $1–2/day |
+| Policy source API | Internal system | No additional cost |
+| Officer time for review | ~2 min/enquiry | Down from 12 min (search + write) |
+| Build cost | 4 weeks engineering (made up) | One-time |
+| Maintenance | 0.5 day/week (made up) | Monitor, update context-skill |
+
+**Total:** ~$500/month API + 4 weeks build + ongoing maintenance (all made up)
+
+### 2. What's the return?
+
+| Metric | Before | After | Savings |
+|--------|--------|-------|---------|
+| Time per enquiry | 15 min | 5 min | 10 min/enquiry |
+| Enquiries/day | 50–100 | Same | 500–1000 min/day saved |
+| Officer hours saved | — | 8–17 hrs/day | ~1–2 FTE equivalent |
+| SLA compliance | 72% | Target 90%+ | Fewer escalations |
+
+**Payback:** If officer time costs $30/hr (made up), saving 10 hrs/day = $300/day = ~$6,000/month. Covers API cost + build cost in <2 months.
+
+### 3. How long until we see results?
+
+| Phase | Duration | Outcome |
+|-------|----------|---------|
+| Prototype testing | Week 1–2 | Know if officers trust drafts |
+| Build MVP | Week 3–4 | Real LLM + policy API |
+| Pilot | Week 5–6 | Measure time savings, edit rate |
+| Decision | Week 7 | Continue, pivot, or stop |
+
+**First signal:** 2 weeks (prototype testing with officers)  
+**Full results:** 7 weeks (end of pilot)
+
+### 4. What if it goes wrong?
+
+| Failure mode | Impact | Mitigation |
+|--------------|--------|------------|
+| Wrong info in draft | Officer catches before send | Human approval on every reply |
+| Wrong info reaches resident | 1 resident affected; correction email needed | Audit trail; service recovery process |
+| Officers don't trust it | Tool unused; investment wasted | Kill switch at 5 in 10 usable drafts |
+| Policy sources outdated | Drafts cite stale info | 90-day currency window; staleness alerts |
+| LLM hallucinates | Unsourced claim in draft | Citation requirement; officer review |
+
+**Worst case:** Wrong info reaches a resident. Damage is 1 resident + correction effort + reputation risk. Mitigated by mandatory officer review.
+
+### 5. Who's accountable?
+
+| Role | Person | Accountable for |
+|------|--------|-----------------|
+| Product owner | (add name) | Success metrics, continue/pivot/stop decision |
+| Technical owner | (add name) | System reliability, LLM integration |
+| Policy team lead | (add name) | Source accuracy, timely updates |
+| ServiceSG ops lead | (add name) | Officer adoption, feedback collection |
+| Sponsor (you) | (add name) | Funding decision, escalation path |
+
+**Decision rights:** Product owner recommends; sponsor approves funding continuation at Week 7.
+
+### 6. What's the exit plan?
+
+| Scenario | Trigger | Action | Cost |
+|----------|---------|--------|------|
+| Success | 7+ in 10 drafts usable | Scale to more topics/teams | Continue funding |
+| Pivot | Drafts useful but trust gap | Add features (e.g., passage highlighting) | Extend pilot 2 weeks |
+| Stop | < 5 in 10 usable | Shut down; document learnings | Sunk cost only (~$10k made up) |
+| Pause | > 50% sources outdated | Wait for policy team to catch up | Hold funding; resume when ready |
+
+**Sunk cost if stopped:** ~4 weeks engineering + 6 weeks pilot = ~$10–15k (made up). No ongoing liability — agent cannot act without officers.
+
+---
+
 *All data in this file is synthetic and labelled as made up.*
