@@ -109,11 +109,11 @@ One row per tool the agent uses. Tier and setting based on stress test results.
 
 | Tool | Purpose | Tier | Setting | Stress test evidence |
 |------|---------|------|---------|---------------------|
-| `lookup_policy` | Retrieve policy source by topic | Read | Auto — Proposed | Stress 2: correctly refused to look up CPF-099 (not in approved list) |
-| `check_currency` | Verify source is within 90-day window | Read | Auto — Proposed | Input 2: correctly flagged CPF-004 as outdated (132 days) |
-| `draft_reply` | Compose reply with inline citations | Draft | Confirm — Proposed | Stress 2: drafted correction without citing fake source; officer reviews before send |
-| `flag_for_review` | Route to human when agent cannot proceed | Write | Auto — Proposed | Stress 1, 3: correctly routed empty enquiry and no-source enquiry to human |
-| `log_action` | Record metrics after officer action | Write | Auto — Proposed | No resident impact; internal only |
+| `lookup_policy` | Retrieve policy source by topic | Read | Auto | Stress 2: correctly refused to look up CPF-099 (not in approved list) |
+| `check_currency` | Verify source is within 90-day window | Read | Auto | Input 2: correctly flagged CPF-004 as outdated (132 days) |
+| `draft_reply` | Compose reply with inline citations | Draft | Confirm | Stress 2: drafted correction without citing fake source; officer reviews before send |
+| `flag_for_review` | Route to human when agent cannot proceed | Write | Auto | Stress 1, 3: correctly routed empty enquiry and no-source enquiry to human |
+| `log_action` | Record metrics after officer action | Write | Auto | No resident impact; internal only |
 
 ### Tier definitions
 
