@@ -40,7 +40,7 @@ log_action(enquiryId: string, action: 'sent' | 'edited' | 'rewrote', timeSpent: 
 
 - **Policy sources:** 4 CPF-related sources (CPF-001 to CPF-004), each with a single owner and review date
 - **Topic mapping:** Retirement, Withdrawal, CPF LIFE, Medisave, Housing, Fees, Other
-- **Rules from context-skill.md:** Cite every claim, single source per claim, no inference, 90-day currency window
+- **Rules from context-skill.md:** Cite every claim, one source per claim (multiple sources allowed for distinct claims), no inference across sources, 90-day currency window
 
 ### What you retrieve
 
