@@ -109,6 +109,34 @@ All data in this file is synthetic and labelled as made up.
 
 *Scenario: At 08:00 Monday, an officer discovers the agent drafted a reply with incorrect information, and the officer sent it to a resident.*
 
+### How the error is discovered
+
+| Trigger | Who notices | Action |
+|---------|-------------|--------|
+| Resident replies pointing out error | Officer reading inbox | Flags immediately |
+| Officer spots error after sending | Officer | Flags immediately |
+| Another officer notices during review | Officer | Flags immediately |
+| Supervisor spot-checks sent replies | Ops Lead | Starts at T+5 min |
+
+### Severity levels
+
+| Level | Definition | Response |
+|-------|------------|----------|
+| **Low** | Minor wording issue, correct info | Log only; no correction needed |
+| **Medium** | Wrong figure or date, resident not yet acted | Correction email within 30 min |
+| **High** | Wrong eligibility advice, resident may act on it | Correction email + phone call; pause agent |
+| **Critical** | Financial harm possible, multiple residents affected | Pause agent immediately; escalate to Sponsor |
+
+### On-call contacts (made up)
+
+| Role | Primary | Backup | Hours |
+|------|---------|--------|-------|
+| Ops Lead | (add name) | (add name) | Office hours (Mon–Fri 08:00–18:00) |
+| Technical Owner | (add name) | (add name) | Office hours + on-call for Critical |
+| Product Owner | (add name) | — | Office hours; reachable for High/Critical |
+
+**Outside office hours:** Critical incidents only. Technical Owner on-call handles pause decision; Product Owner notified next business day for Medium/High.
+
 ### Timeline
 
 | Time | Who | Action |
