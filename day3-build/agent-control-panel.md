@@ -112,7 +112,7 @@ One row per tool the agent uses. Tier and setting based on stress test results.
 | `lookup_policy` | Retrieve policy source by topic | Read | Auto | Stress 2: correctly refused to look up CPF-099 (not in approved list) |
 | `check_currency` | Verify source is within 90-day window | Read | Auto | Input 2: correctly flagged CPF-004 as outdated (132 days) |
 | `draft_reply` | Compose reply with inline citations | Draft | Confirm | Stress 2: drafted correction without citing fake source; officer reviews before send |
-| `flag_for_review` | Route to human when agent cannot proceed | Write | Auto | Stress 1, 3: correctly routed empty enquiry and no-source enquiry to human |
+| `flag_for_review` | Route to human when agent cannot proceed | Write | Auto + throttle | Stress 1, 3: correctly routed empty enquiry and no-source enquiry to human. Throttle prevents flooding officers. |
 | `log_action` | Record metrics after officer action | Write | Auto | No resident impact; internal only |
 
 ### Tier definitions
