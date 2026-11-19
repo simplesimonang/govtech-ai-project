@@ -83,15 +83,32 @@ Officers over-trust and send without reading — errors reach residents because 
 
 ## Agent role and guardrails
 
-**Agent role:** Draft first replies to policy enquiries by retrieving the relevant policy page and composing a response that cites the source.
+**Agent role:** Draft first replies to policy enquiries by retrieving the relevant policy page and composing a response with inline citations. The agent proposes; humans dispose.
+
+**What the agent decides alone:**
+- Classify enquiry by topic (keyword match)
+- Look up policy source (deterministic)
+- Check source currency (date comparison)
+- Add warnings for outdated sources
+
+**What the agent proposes and waits:**
+- Draft reply with citations → officer reviews before send
+- Flag low-confidence claims → officer verifies or removes
+
+**What stays human:**
+- Send reply to resident (policy requirement)
+- Access resident account data (privacy)
+- Override policy sources (authority)
+- Decide continue/pivot/stop (accountability)
 
 **Guardrails:**
-1. Cite every claim — every figure, deadline, or eligibility rule links to a source
-2. Single source of truth — each topic maps to exactly one authoritative page
-3. No inference — do not combine rules from two sources to infer a new rule
-4. Scope boundary — if no source applies, say "I don't have information on this" and route to human
-5. Currency window — flag sources older than 90 days as "may be outdated"
-6. Human approval — an officer reviews and approves every reply before it is sent
+1. Cite every claim — every figure, deadline, or rule links to a source
+2. One source per claim — multiple sources allowed for distinct claims, but no inference across sources
+3. Scope boundary — if no source applies, say "I don't have information on this" and route to human
+4. Currency window — flag sources older than 90 days as "may be outdated"
+5. Human approval — an officer reviews and approves every reply before it is sent
+
+**Stop conditions:** Agent routes to human when no source covers the topic, sources contradict, enquiry has images, or resident asks for account info. Project stops if officers rewrite most drafts or get stuck >3 minutes.
 
 ## Roles and operating model
 
