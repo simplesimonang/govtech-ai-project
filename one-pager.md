@@ -114,14 +114,26 @@ Officers over-trust and send without reading — errors reach residents because 
 
 | Role | Responsibility |
 |------|----------------|
-| ServiceSG Officer | Reviews AI draft, edits if needed, approves and sends reply |
-| Policy Owner (e.g. CPF Policy Team) | Maintains source pages, updates within 5 days when flagged |
-| ServiceSG AI Team | Maintains the AI system, monitors draft quality, updates context-skill |
-| Product Owner | Tracks metrics, decides continue/pivot/stop |
+| Officer | Reviews AI draft, edits if needed, approves and sends reply |
+| Ops Lead | Day-to-day operations, incident commander, can pause agent up to 4 hours |
+| Product Owner | Success metrics, scope decisions, continue/pivot/stop |
+| Technical Owner | System reliability, LLM integration, root cause analysis |
+| Policy Team Lead | Source accuracy, updates flagged sources within 5 days |
+| Sponsor | Funding decisions, escalation path, pause authority >24 hours |
 
-**Review cadence:** Policy sources reviewed monthly, or within 3 days of a policy change announcement.
+**Decision rights:**
 
-**Escalation:** If AI says "I don't have information," officer writes reply manually and flags the gap for the AI team.
+| Decision | Who decides | Who is consulted |
+|----------|-------------|------------------|
+| Scope | Product Owner | Policy Team Lead, Ops Lead |
+| Permissions | Product Owner | Policy Team Lead, Security Lead |
+| Go-live | Product Owner | Ops Lead, Technical Owner |
+| Incident | Ops Lead (service) / Technical Owner (system) | Product Owner |
+| Retire | Sponsor | Product Owner, Ops Lead |
+
+**Incident response:** Officer flags error → Ops Lead decides pause/continue → Product Owner notifies Sponsor within 4 hours. See `day3-build/operating-model.md` for full playbook.
+
+**Review cadence:** Metrics weekly, sources monthly, permissions quarterly.
 
 ## Strategy and roadmap
 
