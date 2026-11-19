@@ -311,6 +311,7 @@ Decisions that need input before engineering can build.
 | 5 | **Rate limit handling** | Queue / reject / degrade | Engineering + Product | Affects peak load behavior |
 | 6 | **Image-based enquiries** | Route to human / attempt OCR | Product + Engineering | OCR adds cost and complexity |
 | 7 | **Concurrent editing** | Lock enquiry / last-write-wins / merge | Engineering + Product | Affects multi-officer scenarios |
+| 8 | **Flag-for-review rate limit** | Auto with throttle (max N/min) / Confirm each flag / Auto unlimited | Product + Ops Lead | Auto unlimited risks flooding officers if many enquiries trigger routing (empty, images, no-source topics) |
 
 ---
 
