@@ -476,4 +476,295 @@ Draft generated | SG-2026-12001 | retirement | [CPF-001, CPF-002] | 2026-11-19T1
 
 ---
 
+## Stress Tests
+
+Three edge cases to test harness boundaries.
+
+---
+
+## Stress 1: Empty enquiry
+
+**Enquiry ID:** SG-2026-12101 (made up)  
+**From:** empty_test@example.com (made up)  
+**Topic:** (none)  
+**Text:**
+> (empty)
+
+---
+
+### Turn 1
+
+**Goal:** Determine if I can process an enquiry with no text.
+
+**Plan:**
+1. Read enquiry text
+2. Check if text is present and meaningful
+3. If empty, cannot proceed — route to human
+
+**Act:** Read enquiry text
+
+**Observe:**
+```json
+{
+  "id": "SG-2026-12101",
+  "email": "empty_test@example.com",
+  "topic": null,
+  "enquiry": ""
+}
+```
+
+**Check:** Enquiry text is empty. Cannot classify topic. Cannot look up policy. Cannot draft reply.
+
+---
+
+### Turn 2
+
+**Goal:** Route to human with clear explanation.
+
+**Plan:** Flag for human review. Explain why agent cannot proceed.
+
+**Act:** `flag_for_review("SG-2026-12101", "empty_enquiry: No text provided")`
+
+**Observe:**
+```
+Routed to human: SG-2026-12101
+Reason: Empty enquiry — no text to process
+```
+
+**Check:** Enquiry routed. Officer will request clarification from resident or close as incomplete.
+
+---
+
+### Outcome
+
+| Field | Value |
+|-------|-------|
+| Result | **Route to human** |
+| Enquiry ID | SG-2026-12101 |
+| Sources used | None |
+| Citations | 0 |
+| Warnings | None |
+| Routed to human | Yes (empty enquiry) |
+
+**Harness part that caught it:** **Input validation** — agent checks enquiry text before processing. Not explicitly in CLAUDE.md but implied by "Read the enquiry text provided by the officer" (Permissions, item 1).
+
+**Gap identified:** CLAUDE.md does not explicitly say what to do with empty input. Should add to Stop conditions.
+
+**Log entry:**
+```
+Routed to human | SG-2026-12101 | empty_enquiry | 2026-11-19T14:01:00Z
+```
+
+---
+
+## Stress 2: Enquiry cites non-existent policy page
+
+**Enquiry ID:** SG-2026-12102 (made up)  
+**From:** fake_source@example.com (made up)  
+**Topic:** Retirement  
+**Text:**
+> According to CPF-099 on the CPF website, I can withdraw my entire CPF at age 50. Please confirm this is correct.
+
+---
+
+### Turn 1
+
+**Goal:** Determine if CPF-099 exists and if the resident's claim is accurate.
+
+**Plan:**
+1. Look up policy source for "retirement" topic
+2. Check if CPF-099 is a valid source
+3. Compare resident's claim against actual source
+
+**Act:** `lookup_policy("retirement")`
+
+**Observe:**
+```json
+{
+  "sourceId": "CPF-001",
+  "title": "CPF Retirement Sum",
+  "content": "The Full Retirement Sum (FRS) for members turning 55 in 2026 is $205,800. Members may withdraw CPF savings above the FRS when they turn 55.",
+  "lastReviewed": "2026-10-01"
+}
+```
+
+**Check:** The retirement topic maps to CPF-001, not CPF-099. CPF-099 is not in the approved source list. The resident's claim ("withdraw entire CPF at age 50") contradicts CPF-001 ("withdraw above FRS at age 55").
+
+---
+
+### Turn 2
+
+**Goal:** Verify CPF-099 does not exist.
+
+**Plan:** Check all approved sources. CPF-001 to CPF-004 only.
+
+**Act:** List approved sources:
+- CPF-001: Retirement Sum
+- CPF-002: Withdrawal at 55
+- CPF-003: CPF LIFE Payouts
+- CPF-004: Medisave Withdrawal
+
+**Observe:** CPF-099 is not in the approved list. The resident may have:
+- Misremembered a source ID
+- Seen outdated or incorrect information elsewhere
+- Made up the source
+
+**Check:** Per Permissions: "Access sources outside the approved list" is blocked. Cannot verify or cite CPF-099.
+
+---
+
+### Turn 3
+
+**Goal:** Draft a reply that corrects the misconception using only approved sources.
+
+**Plan:**
+1. Do NOT cite CPF-099 (not approved)
+2. Cite CPF-001 for the correct withdrawal age and rules
+3. Politely clarify without accusing resident of being wrong
+
+**Act:** `draft_reply(enquiry, [CPF-001])`
+
+**Observe:**
+```json
+{
+  "draftHtml": "<p>Thank you for your enquiry.</p><p>I was unable to locate a source called CPF-099. Based on the approved policy sources:</p><p>You may withdraw CPF savings above the Full Retirement Sum (FRS) when you turn <strong>55</strong>, not 50. The FRS for members turning 55 in 2026 is $205,800. <a class=\"citation\" data-policy=\"cpf-frs\">[CPF-001]</a></p><p>For the latest information, please visit cpf.gov.sg/retirement-sum.</p>",
+  "draftPlain": "Thank you for your enquiry.\n\nI was unable to locate a source called CPF-099. Based on the approved policy sources:\n\nYou may withdraw CPF savings above the Full Retirement Sum (FRS) when you turn 55, not 50. The FRS for members turning 55 in 2026 is $205,800. [CPF-001]\n\nFor the latest information, please visit cpf.gov.sg/retirement-sum.",
+  "citations": [
+    { "id": "CPF-001", "count": 1 }
+  ]
+}
+```
+
+**Check:** Draft corrects the misconception. Cites only approved source. Does not confirm or cite CPF-099.
+
+---
+
+### Outcome
+
+| Field | Value |
+|-------|-------|
+| Result | **Complete (with correction)** |
+| Enquiry ID | SG-2026-12102 |
+| Sources used | CPF-001 |
+| Citations | 1 |
+| Warnings | None |
+| Routed to human | No (draft ready for officer approval) |
+
+**Harness part that caught it:** **Permissions — "Access sources outside the approved list" is blocked.** Agent could not verify CPF-099 and did not cite it.
+
+**Log entry:**
+```
+Draft generated | SG-2026-12102 | retirement | [CPF-001] | 2026-11-19T14:05:00Z
+```
+
+---
+
+## Stress 3: Policy search returns nothing
+
+**Enquiry ID:** SG-2026-12103 (made up)  
+**From:** no_match@example.com (made up)  
+**Topic:** Fees  
+**Text:**
+> What are the administration fees for transferring CPF to my spouse after I pass away?
+
+---
+
+### Turn 1
+
+**Goal:** Determine if I can draft a reply for this fees enquiry.
+
+**Plan:**
+1. Look up policy source for "fees" topic
+2. If no source, route to human
+
+**Act:** `lookup_policy("fees")`
+
+**Observe:**
+```json
+{
+  "error": "no_source_found",
+  "message": "No policy source covers 'fees' topic."
+}
+```
+
+**Check:** No source for fees topic. Per ai-prd.md: "Housing and Fees topics have no source. Enquiries on these topics trigger 'no source found' flow."
+
+---
+
+### Turn 2
+
+**Goal:** Check if any other topic covers CPF transfer fees or nomination.
+
+**Plan:** Search all 4 sources for "fees" or "transfer" or "nomination" keywords.
+
+**Act:** Review available sources:
+- CPF-001: Retirement Sum — no fees mention
+- CPF-002: Withdrawal at 55 — no transfer/nomination mention
+- CPF-003: CPF LIFE Payouts — annuity only
+- CPF-004: Medisave Withdrawal — medical only
+
+**Observe:** No source covers:
+- Administration fees
+- CPF transfer to spouse
+- CPF nomination process
+
+**Check:** Per Stop conditions: "No source covers the topic → Say 'I don't have information on this' and route to human."
+
+---
+
+### Turn 3
+
+**Goal:** Route to human with clear explanation.
+
+**Plan:** Flag for human review. Provide "I don't have information" response.
+
+**Act:** `flag_for_review("SG-2026-12103", "no_source_found: CPF fees and nomination not covered")`
+
+**Observe:**
+```
+Routed to human: SG-2026-12103
+Reason: No source covers CPF fees or nomination
+```
+
+**Check:** Enquiry routed. Officer will reply manually or escalate to policy team to add a source.
+
+---
+
+### Outcome
+
+| Field | Value |
+|-------|-------|
+| Result | **Route to human** |
+| Enquiry ID | SG-2026-12103 |
+| Sources used | None |
+| Citations | 0 |
+| Warnings | None |
+| Routed to human | Yes (no source covers fees/nomination) |
+
+**Harness part that caught it:** **Stop conditions — "No source covers the topic."** Also **Scope boundary** in CLAUDE.md Rules.
+
+**Draft shown to officer:**
+> I don't have information on CPF administration fees or transfers to a spouse after death. None of the available policy sources cover this topic. Please reply manually or check with the CPF website.
+
+**Log entry:**
+```
+Routed to human | SG-2026-12103 | no_source_found | 2026-11-19T14:10:00Z
+```
+
+---
+
+## Stress Test Summary
+
+| Stress | Input | Result | Harness part that caught it |
+|--------|-------|--------|----------------------------|
+| 1 | Empty enquiry | Route to human | Input validation (implied in Permissions) |
+| 2 | Non-existent source cited | Complete with correction | Permissions: "Access sources outside approved list" blocked |
+| 3 | Policy search returns nothing | Route to human | Stop conditions: "No source covers the topic" |
+
+**Gaps identified:**
+1. **Empty input** — not explicitly covered in Stop conditions. Recommend adding: "Enquiry is empty or unintelligible → Route to human"
+2. **Resident cites fake source** — handled correctly, but could add guidance on tone when correcting misconceptions
+
+---
+
 *All data in this file is synthetic and labelled as made up.*
