@@ -25,6 +25,26 @@ const agentLog = {
   }
 };
 
+// Outbox - stores sent replies
+const outbox = {
+  getAll() {
+    return JSON.parse(localStorage.getItem('outbox') || '[]');
+  },
+  add(reply) {
+    const replies = this.getAll();
+    replies.unshift({
+      timestamp: new Date().toISOString(),
+      ...reply
+    });
+    localStorage.setItem('outbox', JSON.stringify(replies));
+  },
+  clear() {
+    localStorage.removeItem('outbox');
+  }
+};
+
+let showingOutbox = false;
+
 // State
 let currentFilter = 'all';
 let selectedEnquiry = null;
@@ -119,6 +139,64 @@ function filterByTopic(topicId) {
   currentFilter = topicId;
   renderTopicFilter();
   renderInbox();
+}
+
+function toggleOutbox() {
+  showingOutbox = !showingOutbox;
+  document.getElementById('inbox-header-title').textContent = showingOutbox ? 'Outbox (Sent)' : 'Enquiry Inbox';
+  document.getElementById('outbox-toggle').textContent = showingOutbox ? 'Show Inbox' : 'Show Outbox';
+  document.getElementById('topic-filter').style.display = showingOutbox ? 'none' : 'flex';
+
+  if (showingOutbox) {
+    renderOutbox();
+  } else {
+    renderInbox();
+  }
+}
+
+function renderOutbox() {
+  const container = document.getElementById('inbox-list');
+  const replies = outbox.getAll();
+
+  if (replies.length === 0) {
+    container.innerHTML = `
+      <div style="padding: 20px; text-align: center; color: #666;">
+        <p>No sent replies yet.</p>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = replies.map((r, i) => {
+    const time = new Date(r.timestamp).toLocaleString();
+    return `
+      <div class="inbox-item" onclick="showSentReply(${i})">
+        <div class="inbox-item-header">
+          <span class="inbox-item-id">#${r.enquiryId}</span>
+          <span class="inbox-item-time">${r.action}</span>
+        </div>
+        <div class="inbox-item-preview">To: ${r.email}</div>
+        <span class="topic-label ${r.topic?.toLowerCase().replace(' ', '-')}">${r.topic}</span>
+        <div style="font-size: 10px; color: #999; margin-top: 4px;">${time}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function showSentReply(index) {
+  const replies = outbox.getAll();
+  const r = replies[index];
+  if (!r) return;
+
+  document.getElementById('empty-state').style.display = 'none';
+  document.getElementById('enquiry-detail').style.display = 'block';
+  document.getElementById('enquiry-id').textContent = `Sent Reply #${r.enquiryId}`;
+  document.getElementById('enquiry-meta').textContent = `To: ${r.email} | ${r.action}`;
+  document.getElementById('enquiry-text').innerHTML = `<pre style="white-space: pre-wrap; font-family: inherit;">${r.replyText}</pre>`;
+
+  document.getElementById('generate-section').style.display = 'none';
+  document.getElementById('draft-section').style.display = 'none';
+  document.getElementById('lookup-failed-section').style.display = 'none';
+  document.getElementById('actions-bar').style.display = 'none';
 }
 
 function selectEnquiry(scenario) {
@@ -296,6 +374,19 @@ function sendReply() {
   if (isEditing && wasEdited) {
     action = 'Sent after editing';
   }
+
+  // Save to outbox
+  const topicName = TOPICS.find(t => t.id === selectedEnquiry.topic)?.name || 'Other';
+  outbox.add({
+    enquiryId: selectedEnquiry.id,
+    email: selectedEnquiry.email,
+    topic: topicName,
+    action: action,
+    replyText: currentText,
+    timeSpent: timeSpent,
+    citationsViewed: citationsViewed.size,
+    citationCount: selectedEnquiry.citationCount || 0
+  });
 
   showResult(action, timeSpent);
 }
