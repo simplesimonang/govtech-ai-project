@@ -10,6 +10,7 @@
   <div class="container">
     <div class="banner">
       This is a prototype with synthetic data for testing purposes. All names, policies, and details are made up.
+      <button onclick="showLogs()" style="float: right; padding: 4px 12px; border-radius: 4px; border: 1px solid #856404; background: white; cursor: pointer; font-size: 12px;">View Logs</button>
     </div>
 
     <div class="layout">
@@ -110,6 +111,19 @@
       </div>
       <p style="font-size: 12px; color: #666;">This data helps us understand if officers trust cited drafts.</p>
       <button class="btn btn-primary" onclick="closeModal()">Continue Testing</button>
+    </div>
+  </div>
+
+  <div class="modal" id="log-modal">
+    <div class="modal-content" style="max-width: 700px; text-align: left;">
+      <h2>Agent Log</h2>
+      <p style="color: #666; font-size: 13px; margin-bottom: 12px;">Actions are logged to localStorage and persist across page reloads.</p>
+      <pre id="log-content" style="background: #f5f5f5; padding: 12px; border-radius: 6px; font-size: 12px; overflow-x: auto; max-height: 300px; white-space: pre-wrap;"></pre>
+      <div style="margin-top: 16px; display: flex; gap: 8px;">
+        <button class="btn btn-primary" onclick="closeLogModal()">Close</button>
+        <button class="btn btn-secondary" onclick="clearLogs()">Clear Logs</button>
+        <button class="btn btn-secondary" onclick="copyLogs()">Copy to Clipboard</button>
+      </div>
     </div>
   </div>
 
