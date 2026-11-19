@@ -105,6 +105,75 @@ All data in this file is synthetic and labelled as made up.
 
 ---
 
+## Incident playbook: wrong answer reached resident
+
+*Scenario: At 08:00 Monday, an officer discovers the agent drafted a reply with incorrect information, and the officer sent it to a resident.*
+
+### Timeline
+
+| Time | Who | Action |
+|------|-----|--------|
+| T+0 min | **Officer** | Discovers error. Flags in system. Notifies Ops Lead immediately (Slack/call). |
+| T+5 min | **Ops Lead** | Acknowledges. Assesses: one-off or pattern? Notifies Technical Owner. |
+| T+15 min | **Ops Lead** | Decides: pause agent (if pattern) or continue (if one-off). Has authority to pause for up to 4 hours. |
+| T+30 min | **Officer** | Sends correction email to resident. Uses standard template. Ops Lead reviews before send. |
+| T+1 hr | **Ops Lead** | Notifies Product Owner with summary: what happened, who affected, action taken. |
+| T+2 hr | **Technical Owner** | Completes root cause analysis (RCA). Was it source, model, or process? |
+| T+4 hr | **Product Owner** | Decides: resume agent, keep paused, or escalate to Sponsor. Notifies Sponsor either way. |
+| T+24 hr | **Product Owner** | Posts incident summary to team. Updates metrics dashboard if needed. |
+
+### Who does what
+
+| Role | Responsibility in this incident |
+|------|--------------------------------|
+| **Officer** | First to know. Flags error. Sends correction to resident. |
+| **Ops Lead** | Incident commander. Decides pause/continue. Coordinates response. |
+| **Technical Owner** | Root cause analysis. Fixes system if needed. |
+| **Product Owner** | Comms to Sponsor. Decides whether to resume or escalate. |
+| **Sponsor** | Told within 4 hours. Decides if incident triggers kill switch review. |
+| **Policy Team Lead** | Consulted if source was wrong. Updates source if needed. |
+
+### Kill switch authority
+
+| Duration | Who can pause | Who must approve resume |
+|----------|---------------|------------------------|
+| Up to 4 hours | Ops Lead | Ops Lead (own judgment) |
+| 4–24 hours | Product Owner | Product Owner |
+| >24 hours | Sponsor | Sponsor |
+
+### Correction template (made up)
+
+```
+Subject: Correction to our earlier reply – [Enquiry #ID]
+
+Dear [Resident],
+
+We wrote to you earlier about [topic]. We have since found that 
+the information we provided was not correct.
+
+The correct information is: [corrected statement with source].
+
+We apologise for any confusion. If you have already acted on our 
+earlier reply, please [specific guidance].
+
+If you have questions, please reply to this email or call us at [number].
+
+Warm regards,
+ServiceSG
+```
+
+### Post-incident
+
+| Action | Owner | Deadline |
+|--------|-------|----------|
+| Log incident in tracker | Ops Lead | Same day |
+| Root cause analysis | Technical Owner | 24 hours |
+| Update context-skill.md if source issue | Policy Team Lead | 48 hours |
+| Review: should permission move from Auto to Confirm? | Product Owner | 1 week |
+| Share learnings with team | Product Owner | 1 week |
+
+---
+
 ## Review cadence
 
 | What | How often | Who |
