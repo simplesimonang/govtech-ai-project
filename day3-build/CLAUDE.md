@@ -102,6 +102,7 @@ Stop drafting and route to human when:
 
 | Condition | Action | Reason |
 |-----------|--------|--------|
+| Enquiry is empty or unintelligible | Route to human | Nothing to process |
 | No source covers the topic | Say "I don't have information on this" | Scope boundary |
 | Two sources contradict | Flag both sources for review | No inference rule |
 | Source older than 90 days | Add warning, let officer decide | Currency window |

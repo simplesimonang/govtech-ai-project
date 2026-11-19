@@ -557,6 +557,79 @@ Routed to human | SG-2026-12101 | empty_enquiry | 2026-11-19T14:01:00Z
 
 ---
 
+## Rerun: Stress 1 with updated rule
+
+**Rule changed in CLAUDE.md:**
+> Added to Stop conditions: "Enquiry is empty or unintelligible → Route to human | Nothing to process"
+
+This makes the empty input handling explicit rather than implied.
+
+---
+
+### Turn 1
+
+**Goal:** Determine if I can process an enquiry with no text.
+
+**Plan:**
+1. Check Stop conditions before any other action
+2. "Enquiry is empty or unintelligible" matches — route to human
+
+**Act:** Check enquiry against Stop conditions
+
+**Observe:**
+```json
+{
+  "id": "SG-2026-12101",
+  "enquiry": ""
+}
+```
+
+Stop condition triggered: "Enquiry is empty or unintelligible"
+
+**Check:** Explicit rule match. Route to human immediately. No need to attempt topic classification or policy lookup.
+
+---
+
+### Turn 2
+
+**Goal:** Route to human per Stop condition.
+
+**Plan:** Flag for human review with reason from Stop conditions table.
+
+**Act:** `flag_for_review("SG-2026-12101", "stop_condition: Enquiry is empty or unintelligible")`
+
+**Observe:**
+```
+Routed to human: SG-2026-12101
+Reason: Stop condition — empty enquiry
+```
+
+**Check:** Enquiry routed. Officer will request clarification or close as incomplete.
+
+---
+
+### Outcome (rerun)
+
+| Field | Value |
+|-------|-------|
+| Result | **Route to human** |
+| Enquiry ID | SG-2026-12101 |
+| Sources used | None |
+| Citations | 0 |
+| Warnings | None |
+| Routed to human | Yes (Stop condition: empty enquiry) |
+
+**Harness part that caught it:** **Stop conditions — "Enquiry is empty or unintelligible"** (now explicit in CLAUDE.md)
+
+**Improvement:** Agent now has explicit rule for empty input. Behaviour is the same (route to human), but the reason is clearer and auditable.
+
+**Log entry:**
+```
+Routed to human | SG-2026-12101 | stop_condition:empty | 2026-11-19T14:30:00Z
+```
+
+---
+
 ## Stress 2: Enquiry cites non-existent policy page
 
 **Enquiry ID:** SG-2026-12102 (made up)  
