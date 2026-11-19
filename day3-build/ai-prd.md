@@ -59,6 +59,81 @@ The agent drafts first replies to resident enquiries about CPF policy.
 
 ---
 
+## API contracts (for engineering)
+
+### Enquiry input schema
+
+```json
+{
+  "id": "SG-2026-11847",
+  "email": "tan_ah_kow@example.com",
+  "date": "18 Nov, 9:32 AM",
+  "topic": "retirement",
+  "preview": "Hi, I recently turned 55...",
+  "enquiry": "<p>Full enquiry HTML...</p>"
+}
+```
+
+### Draft output schema
+
+```json
+{
+  "draftHtml": "<p>Dear Resident...</p>",
+  "draftPlain": "Dear Resident...",
+  "citations": [
+    { "id": "CPF-001", "count": 2 },
+    { "id": "CPF-002", "count": 1 }
+  ],
+  "warnings": ["source_outdated"],
+  "lowConfidenceSpans": [12, 45]
+}
+```
+
+### Citation HTML format
+
+```html
+<a href="#" class="citation" data-policy="cpf-frs">CPF-001</a>
+```
+
+Low-confidence text:
+```html
+<span class="low-confidence">Text here</span><span class="low-confidence-tag">(verify)</span>
+```
+
+Outdated warning:
+```html
+<div class="outdated-warning">This source was last reviewed on 2026-07-10 and may be outdated.</div>
+```
+
+### Policy source location
+
+Sources are defined in `day2-validate/context-skill.md`:
+
+| Source ID | Topic mapping | URL (made up) |
+|-----------|---------------|---------------|
+| CPF-001 | retirement | cpf.gov.sg/retirement-sum |
+| CPF-002 | withdrawal | cpf.gov.sg/withdrawal-55 |
+| CPF-003 | cpf-life | cpf.gov.sg/cpf-life |
+| CPF-004 | medisave | cpf.gov.sg/medisave |
+
+**Note:** Housing and Fees topics have no source. Enquiries on these topics trigger "no source found" flow.
+
+### Topic classification
+
+One topic per enquiry. Classification is done upstream (inbox system) before agent sees it. Agent does not reclassify.
+
+| Topic ID | Display name |
+|----------|--------------|
+| retirement | Retirement |
+| withdrawal | Withdrawal |
+| cpf-life | CPF LIFE |
+| medisave | Medisave |
+| housing | Housing |
+| fees | Fees |
+| other | Other |
+
+---
+
 ## Context and memory
 
 ### What the agent knows at start
@@ -220,6 +295,22 @@ These are implementation choices, not product or policy decisions. Engineering m
 | Error message wording | Varies | Engineering writes user-facing error text |
 | Loading spinner design | Varies | Engineering/design choice |
 | Mobile responsiveness | Yes/No | Out of scope for v1 per handoff-note |
+
+---
+
+## Open decisions
+
+Decisions that need input before engineering can build.
+
+| # | Decision | Options | Who decides | Impact if deferred |
+|---|----------|---------|-------------|-------------------|
+| 1 | **Confidence threshold** | 0.7 / 0.8 / 0.9 / none | Product + Policy | Too high = everything marked uncertain; too low = false confidence |
+| 2 | **What counts as "light edit"?** | < 20% characters changed / < 30 sec editing / officer self-report | Product | Affects success metric (7 in 10) interpretation |
+| 3 | **Multi-topic enquiries** | Primary topic only / split drafts / refuse | Product + Policy | Agent currently assumes one topic per enquiry |
+| 4 | **LLM timeout handling** | Retry once / show error / fall back to template | Engineering + Product | Affects UX when LLM is slow |
+| 5 | **Rate limit handling** | Queue / reject / degrade | Engineering + Product | Affects peak load behavior |
+| 6 | **Image-based enquiries** | Route to human / attempt OCR | Product + Engineering | OCR adds cost and complexity |
+| 7 | **Concurrent editing** | Lock enquiry / last-write-wins / merge | Engineering + Product | Affects multi-officer scenarios |
 
 ---
 
