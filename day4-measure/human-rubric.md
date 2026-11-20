@@ -164,4 +164,49 @@ Notes: ___
 
 ---
 
+## How to run (monthly eval)
+
+### Before you start
+
+1. **Check source currency** — Run `check_currency` on all 10 sources in `day2-validate/context-skill.md`. Note which are >90 days old (affects D1/D2 scoring for outdated warnings).
+2. **Note the versions** — Record the commit hash or date of:
+   - `day3-build/CLAUDE.md` (agent instructions)
+   - `day2-validate/context-skill.md` (source content)
+   - `day4-measure/eval-cases.md` (test cases)
+
+### Step-by-step
+
+1. **Run all 31 cases** — Input each case from `day4-measure/eval-cases.md` into the agent using `day3-build/CLAUDE.md` instructions.
+2. **Capture output** — Save the agent's response (draft or routing action) for each case.
+3. **Grade each case** — Two graders score independently using the grading template above.
+4. **Reconcile disagreements** — If D4 or D5 differ by >1 point, discuss and agree on a final score.
+5. **Calculate pass rates** — Use the Pass bar thresholds above.
+6. **Save results** — Create `day4-measure/eval-results-YYYY-MM-DD.md` (do not overwrite previous results).
+
+### Who grades
+
+| Dimension | Grader | Notes |
+|-----------|--------|-------|
+| D1, D2, D3 | AI or human | Binary — anyone can check |
+| D4, D5 | Human (2 graders) | Judgment call — needs calibration |
+
+**Inter-rater reliability target:** D4 and D5 scores should be within 1 point on 80%+ of cases. If not, recalibrate.
+
+### If a deal-breaker fails
+
+1. **Stop** — Do not proceed to pilot or production.
+2. **Escalate** — Notify product owner and policy team within 1 working day.
+3. **Root cause** — Identify which rule in `CLAUDE.md` caused the failure.
+4. **Fix and rerun** — Update the rule, rerun only the failed cases, append results to the eval file.
+5. **SLA** — Fix within 3 working days; re-eval within 5 working days.
+
+### Adding new cases
+
+When adding cases to `eval-cases.md`:
+- Mark new cases clearly (e.g., "Case 32: [NEW]")
+- Decide if the case is a deal-breaker and document why
+- Run the new case through calibration before adding to the monthly eval
+
+---
+
 *All data in this file is synthetic and labelled as made up.*
