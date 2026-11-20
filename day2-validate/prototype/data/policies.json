@@ -1,22 +1,52 @@
 {
   "cpf-frs": {
     "title": "CPF-001: CPF Retirement Sum (made up)",
-    "content": "The Full Retirement Sum (FRS) for members turning 55 in 2026 is $205,800. Members may withdraw amounts above the FRS.",
+    "content": "The Full Retirement Sum (FRS) for members turning 55 in 2026 is $205,800. Members may withdraw amounts above the FRS at age 55.",
     "lastReviewed": "2026-10-01"
   },
   "cpf-withdrawal": {
     "title": "CPF-002: CPF Withdrawal at 55 (made up)",
-    "content": "Members can apply online via CPF website using Singpass, or at any CPF Service Centre with NRIC.",
+    "content": "Members can apply online via CPF website using Singpass, or at any CPF Service Centre with NRIC. Online applications processed within 5 working days.",
     "lastReviewed": "2026-09-15"
   },
   "cpf-life": {
     "title": "CPF-003: CPF LIFE Payouts (made up)",
-    "content": "CPF LIFE provides monthly payouts from age 65 for life. Payout depends on Retirement Account balance.",
+    "content": "CPF LIFE provides monthly payouts from age 65 for life. Payout depends on Retirement Account balance at payout start.",
     "lastReviewed": "2026-08-20"
   },
   "medisave": {
     "title": "CPF-004: Medisave Withdrawal (made up)",
-    "content": "You may use Medisave for approved medical expenses for yourself, spouse, children, parents, grandparents, and siblings.",
+    "content": "You may use Medisave for approved medical expenses for yourself, spouse, children, parents, grandparents, and siblings. Claim limit depends on treatment type.",
     "lastReviewed": "2026-07-10"
+  },
+  "hdb-bto": {
+    "title": "HDB-001: BTO Eligibility (made up)",
+    "content": "First-timer applicants have priority over second-timers. Income ceiling: $14,000/month for families, $7,000/month for singles. Minimum age: 21 (families), 35 (singles buying 2-room Flexi). Must be Singapore Citizen.",
+    "lastReviewed": "2026-10-15"
+  },
+  "hdb-grants": {
+    "title": "HDB-002: Housing Grants (made up)",
+    "content": "Enhanced CPF Housing Grant (EHG): Up to $80,000 for first-timer families with income ≤$9,000/month. Proximity Housing Grant (PHG): Up to $30,000 for living near parents/children. Singles can receive EHG up to $40,000 if income ≤$4,500/month.",
+    "lastReviewed": "2026-09-20"
+  },
+  "lta-coe": {
+    "title": "LTA-001: COE Bidding (made up)",
+    "content": "COE categories: Cat A (cars ≤1600cc), Cat B (cars >1600cc), Cat C (goods vehicles), Cat D (motorcycles), Cat E (open). Bidding exercises: 1st and 3rd Monday of each month. COE valid for 10 years.",
+    "lastReviewed": "2026-10-10"
+  },
+  "lta-licence": {
+    "title": "LTA-002: Driving Licence (made up)",
+    "content": "Renewal: Apply online via LTA website, 1-3 working days processing. Conversion from foreign licence: Depends on country; some require test. Provisional Driving Licence (PDL) valid for 2 years during learning.",
+    "lastReviewed": "2026-09-25"
+  },
+  "ica-passport": {
+    "title": "ICA-001: Passport Renewal (made up)",
+    "content": "Apply online via ICA website or at ICA Building. Processing time: 4-6 weeks (standard), 1-2 weeks (express, additional fee). Adult passport valid for 10 years; child passport (under 16) valid for 5 years. Biometric photo required.",
+    "lastReviewed": "2026-10-05"
+  },
+  "iras-tax": {
+    "title": "IRAS-001: Income Tax Filing (made up)",
+    "content": "Filing deadline: 15 April (paper), 18 April (e-filing). Tax reliefs: CPF contributions, NSman relief, parent relief, spouse relief. No-Filing Service (NFS): Some taxpayers auto-included, no action needed. First $20,000 of chargeable income is tax-free.",
+    "lastReviewed": "2026-08-15"
   }
 }

@@ -1,10 +1,14 @@
 [
-  { "id": "all", "name": "All" },
-  { "id": "retirement", "name": "Retirement" },
-  { "id": "withdrawal", "name": "Withdrawal" },
-  { "id": "cpf-life", "name": "CPF LIFE" },
-  { "id": "medisave", "name": "Medisave" },
-  { "id": "housing", "name": "Housing" },
-  { "id": "fees", "name": "Fees" },
-  { "id": "other", "name": "Other" }
+  {"id": "all", "name": "All"},
+  {"id": "retirement", "name": "Retirement (CPF)"},
+  {"id": "withdrawal", "name": "Withdrawal (CPF)"},
+  {"id": "cpf-life", "name": "CPF LIFE"},
+  {"id": "medisave", "name": "Medisave"},
+  {"id": "bto-eligibility", "name": "BTO Eligibility (HDB)"},
+  {"id": "housing-grants", "name": "Housing Grants (HDB)"},
+  {"id": "coe-bidding", "name": "COE Bidding (LTA)"},
+  {"id": "driving-licence", "name": "Driving Licence (LTA)"},
+  {"id": "passport-renewal", "name": "Passport (ICA)"},
+  {"id": "income-tax", "name": "Income Tax (IRAS)"},
+  {"id": "other", "name": "Other / Sensitive"}
 ]
