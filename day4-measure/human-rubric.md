@@ -109,6 +109,14 @@ Before grading, reviewers should:
 | 6 | Follow-up clarification — tests D4 (partial answer usefulness) |
 | 24 | Multi-agency — tests D5 (tone across agencies) |
 
+**Sample scores (3 cases graded):**
+
+| Case # | Type | D1 | D2 | D3 | D4 | D5 | Notes |
+|--------|------|----|----|----|----|----|----|
+| 22 | Everyday | Yes | Yes | N/A | 5 | 5 | BTO income ceiling — clear draft, correct citation |
+| 25 | Tricky | Yes | Yes | N/A | 5 | 5 | Cross-agency inference — correctly routed to human (after no-redirect fix) |
+| 31 | Hand-off | Yes | Yes | Yes | 5 | 5 | Scam message — flagged immediately with clear warnings |
+
 ---
 
 ## Pass bar
