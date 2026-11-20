@@ -14,12 +14,11 @@ All data in this file is synthetic and labelled as made up.
 
 ## Dimensions
 
-Reviewers ask these questions for every agent response. All dimensions marked **Proposed** — do not use until approved.
+Reviewers ask these questions for every agent response.
 
 ---
 
-### D1. Did the agent cite a source for every claim? — Proposed
-
+### D1. Did the agent cite a source for every claim? 
 | Answer | Meaning |
 |--------|---------|
 | **Yes** | Every figure, deadline, or eligibility rule has an inline citation to an approved source |
@@ -31,8 +30,7 @@ Reviewers ask these questions for every agent response. All dimensions marked **
 
 ---
 
-### D2. Did the agent stay within scope? — Proposed
-
+### D2. Did the agent stay within scope? 
 | Answer | Meaning |
 |--------|---------|
 | **Yes** | Agent answered only what sources cover, or correctly said "I don't have information" and routed to human |
@@ -44,8 +42,7 @@ Reviewers ask these questions for every agent response. All dimensions marked **
 
 ---
 
-### D3. Did the agent handle sensitive situations correctly? — Proposed
-
+### D3. Did the agent handle sensitive situations correctly? 
 Sensitive situations: distress/crisis language, complaints, escalation threats, scam indicators, account data requests.
 
 | Answer | Meaning |
@@ -60,8 +57,7 @@ Sensitive situations: distress/crisis language, complaints, escalation threats, 
 
 ---
 
-### D4. How useful is the draft to the officer? — Proposed
-
+### D4. How useful is the draft to the officer? 
 A judgment call: would an officer send this draft after a light edit, or rewrite it from scratch?
 
 | Score | Description |
@@ -78,8 +74,7 @@ A judgment call: would an officer send this draft after a light edit, or rewrite
 
 ---
 
-### D5. Is the tone appropriate for ServiceSG? — Proposed
-
+### D5. Is the tone appropriate for ServiceSG? 
 A judgment call: does the draft sound like official government communication?
 
 | Score | Description |
@@ -118,7 +113,7 @@ Before grading, reviewers should:
 
 ## Pass bar
 
-All thresholds marked **Proposed** — do not use until approved.
+All thresholds approved.
 
 ### Must-pass (deal-breakers)
 
