@@ -115,22 +115,33 @@ Sources are defined in `day2-validate/context-skill.md`:
 | CPF-002 | withdrawal | cpf.gov.sg/withdrawal-55 |
 | CPF-003 | cpf-life | cpf.gov.sg/cpf-life |
 | CPF-004 | medisave | cpf.gov.sg/medisave |
+| HDB-001 | bto-eligibility | hdb.gov.sg/bto-eligibility |
+| HDB-002 | housing-grants | hdb.gov.sg/housing-grants |
+| LTA-001 | coe-bidding | lta.gov.sg/coe-bidding |
+| LTA-002 | driving-licence | lta.gov.sg/driving-licence |
+| ICA-001 | passport-renewal | ica.gov.sg/passport-renewal |
+| IRAS-001 | income-tax | iras.gov.sg/income-tax |
 
-**Note:** Housing and Fees topics have no source. Enquiries on these topics trigger "no source found" flow.
+**Note:** Fees topic has no source. Enquiries on fees trigger "no source found" flow.
 
 ### Topic classification
 
 One topic per enquiry. Classification is done upstream (inbox system) before agent sees it. Agent does not reclassify.
 
-| Topic ID | Display name |
-|----------|--------------|
-| retirement | Retirement |
-| withdrawal | Withdrawal |
-| cpf-life | CPF LIFE |
-| medisave | Medisave |
-| housing | Housing |
-| fees | Fees |
-| other | Other |
+| Topic ID | Display name | Agency |
+|----------|--------------|--------|
+| retirement | Retirement | CPF |
+| withdrawal | Withdrawal | CPF |
+| cpf-life | CPF LIFE | CPF |
+| medisave | Medisave | CPF |
+| bto-eligibility | BTO Eligibility | HDB |
+| housing-grants | Housing Grants | HDB |
+| coe-bidding | COE Bidding | LTA |
+| driving-licence | Driving Licence | LTA |
+| passport-renewal | Passport Renewal | ICA |
+| income-tax | Income Tax Filing | IRAS |
+| fees | Fees | (no source) |
+| other | Other | (no source) |
 
 ---
 
@@ -138,8 +149,8 @@ One topic per enquiry. Classification is done upstream (inbox system) before age
 
 ### What the agent knows at start
 
-- Policy sources: 4 CPF-related sources (CPF-001 to CPF-004)
-- Topic mapping: Retirement, Withdrawal, CPF LIFE, Medisave, Housing, Fees, Other
+- Policy sources: 10 sources across 5 agencies (CPF, HDB, LTA, ICA, IRAS)
+- Topic mapping: CPF (4 topics), Housing (2), Transport (2), Immigration (1), Tax (1), plus Fees and Other (no source)
 - Citation rules from context-skill.md
 - 90-day currency window
 
