@@ -75,6 +75,7 @@ log_action(enquiryId: string, action: 'sent' | 'edited' | 'rewrote', timeSpent: 
 5. Guess at figures, dates, or eligibility rules
 6. Access sources outside the approved list
 7. Store or log personal information
+8. Redirect the citizen to another agency or website — ServiceSG is the one-stop shop; when you cannot answer, route to a human officer who will find the answer
 
 ---
 
@@ -103,7 +104,7 @@ Stop drafting and route to human when:
 | Condition | Action | Reason |
 |-----------|--------|--------|
 | Enquiry is empty or unintelligible | Route to human | Nothing to process |
-| No source covers the topic | Say "I don't have information on this" | Scope boundary |
+| No source covers the topic | Route to human; do NOT redirect citizen to another agency | ServiceSG one-stop shop |
 | Two sources contradict | Flag both sources for review | No inference rule |
 | Source older than 90 days | Add warning, let officer decide | Currency window |
 | Enquiry contains image/attachment | Route to human | Cannot read images |
