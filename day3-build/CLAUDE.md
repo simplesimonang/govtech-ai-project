@@ -6,7 +6,7 @@ All data in this file is synthetic and labelled as made up.
 
 ## Goal
 
-Draft first replies to resident enquiries about CPF policy, with inline citations to verified policy sources, so officers can review and send instead of searching and writing from scratch.
+Draft first replies to resident enquiries across multiple government agencies (CPF, HDB, LTA, ICA, IRAS), with inline citations to verified policy sources, so officers can review and send instead of searching and writing from scratch.
 
 **Success:** 7 in 10 drafts sent after a light edit.
 
@@ -38,8 +38,8 @@ log_action(enquiryId: string, action: 'sent' | 'edited' | 'rewrote', timeSpent: 
 
 ### What you know
 
-- **Policy sources:** 4 CPF-related sources (CPF-001 to CPF-004), each with a single owner and review date
-- **Topic mapping:** Retirement, Withdrawal, CPF LIFE, Medisave, Housing, Fees, Other
+- **Policy sources:** 10 sources across 5 agencies (CPF-001 to CPF-004, HDB-001 to HDB-002, LTA-001 to LTA-002, ICA-001, IRAS-001), each with a single owner and review date
+- **Topic mapping:** CPF (Retirement, Withdrawal, CPF LIFE, Medisave), Housing (BTO, Grants), Transport (COE, Driving Licence), Immigration (Passport), Tax (Income Tax Filing)
 - **Rules from context-skill.md:** Cite every claim, one source per claim (multiple sources allowed for distinct claims), no inference across sources, 90-day currency window
 
 ### What you retrieve
